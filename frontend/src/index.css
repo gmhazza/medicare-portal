@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+@theme {
+  --color-teal-dark: #008080;
+  --color-teal-850: #115E59; /* Maps to primary Teal theme color */
+  --color-teal-900: #0F4C47; /* Slightly darker shade of teal for hover states */
+  --color-bg-medicare: #FAFFFD;
+  --color-footer-bg: #000000; /* Pure black background for the footer */
+  
+  --font-heading: 'Nunito', sans-serif;
+  --font-kanit: 'Kanit', sans-serif;
+  --font-body: 'Montserrat', sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg-medicare);
+  color: #1e293b;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 800; /* Bolder feel by default */
+}
+
+/* Extra bold and clean look for very large main page headings */
+h1, .text-4xl, .text-5xl, .text-6xl, .text-7xl {
+  font-weight: 900 !important;
+  letter-spacing: -0.025em !important;
+}
+
+/* Custom scrollbars for a premium feel */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Micro-animations and utility classes */
+.hover-scale {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hover-scale:hover {
+  transform: translateY(-2px) scale(1.01);
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Ensure Medicare logos are simple without borders or border radius */
+img[src*="medicarelogo"] {
+  border: none !important;
+  border-radius: 0px !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* Override text-white utility to use the custom off-white/light teal theme color #f0fdfa */
+.text-white {
+  color: #f0fdfa !important;
+}
+
+/* Horizontal scroll services section */
+.services-scroll-section {
+  height: 100vh;
+  width: 100%;
+}
+
+.services-scroll-track {
+  will-change: transform;
+}
+
+.services-card {
+  will-change: transform;
+  transition: box-shadow 0.5s ease, transform 0.5s ease, opacity 0.5s ease, filter 0.5s ease;
+}
+
+/* Dim other cards only when a specific card is hovered */
+.services-scroll-track:has(.services-card:hover) .services-card:not(:hover) {
+  opacity: 0.4;
+  filter: grayscale(100%);
+}
