@@ -31,6 +31,42 @@ const doctorSignupSchema = z.object({
   pillar: z.enum(['cardiology', 'dermatology', 'orthopedics', 'diagnostics', 'telehealth', 'general']),
 });
 
+const maleDoctorImages = [
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSD0_nQSNjfe9_gTRP5YnNwyaLBK-tuhUd-ukI_GrDL1w&s=10',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsMueobxxhtTLPcipDSyNNQWi3TcYac0N8SVr1l9HyxA&s=10',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMwQxnHe9ym8oigWf7ILv2jAO6E-cn28ZZDQzyoxyvOA&s=10',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK6Cl7f_sjJnJRiW-qe-GtuziKhfKA1ng12bbchZiUEg&s=10'
+];
+
+const femaleDoctorImages = [
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQh1NCp8gkWufrf-rAc3eNTtZe0jc7a7Ca3D5EDhKZxuQ&s=10',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7dV0XrI72GErOcIy0HHYOin75ql6aiPuUcf7MHFrBgQ&s=10',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyOffV_WcnwwBfwLSPTzfnSXf5ejnCsXlphGJLRdkHWw&s=10',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHn9mWsgN1YGLASXNpEnKpmvQKg17JcEGtsmnAXpAGWw&s=10'
+];
+
+const getDoctorAvatar = (doc) => {
+  const name = typeof doc === 'string' ? doc : (doc?.name || '');
+  const gender = typeof doc === 'object' ? doc?.gender : '';
+
+  if (name.includes('Sara Khan')) return femaleDoctorImages[0];
+  if (name.includes('Ayesha Bilal')) return femaleDoctorImages[1];
+  if (name.includes('Nida Yasir')) return femaleDoctorImages[2];
+  if (name.includes('Zainab Raza')) return femaleDoctorImages[3];
+
+  const isFemale = gender === 'female' || ['sara', 'ayesha', 'nida', 'zainab', 'sarah', 'aisha', 'elena'].some(f => name.toLowerCase().includes(f));
+  
+  if (doc?.avatar && !doc.avatar.includes('R0k6mJECkDvvxLWpl2C6oVOgbs49inNcoZtvJRFileqS3TAkNr3qOH87dG') && !doc.avatar.includes('ui-avatars')) {
+    if (!isFemale && femaleDoctorImages.includes(doc.avatar)) return maleDoctorImages[0];
+    if (isFemale && maleDoctorImages.includes(doc.avatar)) return femaleDoctorImages[0];
+    return doc.avatar;
+  }
+  
+  const pool = isFemale ? femaleDoctorImages : maleDoctorImages;
+  const hash = Math.abs((name || 'Dr').split('').reduce((acc, c) => acc + c.charCodeAt(0), 0));
+  return pool[hash % pool.length];
+};
+
 const AdminDashboard = () => {
   const { user } = useAuth();
   const [services, setServices] = useState([]);
@@ -767,7 +803,7 @@ const AdminDashboard = () => {
                         <tr key={doc._id} className="hover:bg-slate-50/50 transition-colors">
                           <td className="px-6 py-4 flex items-center gap-3">
                             <img
-                              src={doc.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(doc.name)}&background=0D9488&color=fff`}
+                              src={getDoctorAvatar(doc)}
                               alt={doc.name}
                               className="w-9 h-9 rounded-full object-cover border border-slate-100"
                             />

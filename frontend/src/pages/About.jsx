@@ -1,10 +1,47 @@
 import React, { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Award, Users, Activity, Building2, CheckCircle2, ShieldCheck, HeartPulse, GraduationCap } from 'lucide-react';
+import { Award, Users, Activity, Building2, CheckCircle2, ShieldCheck, HeartPulse, GraduationCap, ArrowRight, Stethoscope, Sparkles } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
+
+const doctorImages = [
+  // 4 Male Doctors
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSD0_nQSNjfe9_gTRP5YnNwyaLBK-tuhUd-ukI_GrDL1w&s=10',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsMueobxxhtTLPcipDSyNNQWi3TcYac0N8SVr1l9HyxA&s=10',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMwQxnHe9ym8oigWf7ILv2jAO6E-cn28ZZDQzyoxyvOA&s=10',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK6Cl7f_sjJnJRiW-qe-GtuziKhfKA1ng12bbchZiUEg&s=10',
+  // 4 Female Doctors
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQh1NCp8gkWufrf-rAc3eNTtZe0jc7a7Ca3D5EDhKZxuQ&s=10',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7dV0XrI72GErOcIy0HHYOin75ql6aiPuUcf7MHFrBgQ&s=10',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyOffV_WcnwwBfwLSPTzfnSXf5ejnCsXlphGJLRdkHWw&s=10',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHn9mWsgN1YGLASXNpEnKpmvQKg17JcEGtsmnAXpAGWw&s=10',
+];
+
+const gridItems = [
+  { r: 1, c: 3, img: doctorImages[0] },
+  { r: 1, c: 7, img: doctorImages[4] },
+  { r: 2, c: 2, img: doctorImages[1] },
+  { r: 2, c: 6, img: doctorImages[5] },
+  { r: 3, c: 4, img: doctorImages[2] },
+  { r: 4, c: 8, img: doctorImages[6] },
+  { r: 5, c: 1, img: doctorImages[3] },
+  { r: 6, c: 5, img: doctorImages[7] },
+  { r: 7, c: 3, img: doctorImages[0] },
+  { r: 8, c: 7, img: doctorImages[4] },
+  { r: 9, c: 2, img: doctorImages[1] },
+  { r: 10, c: 6, img: doctorImages[5] },
+  { r: 11, c: 4, img: doctorImages[2] },
+  { r: 12, c: 8, img: doctorImages[6] },
+  { r: 13, c: 1, img: doctorImages[3] },
+  { r: 14, c: 5, img: doctorImages[7] },
+  { r: 15, c: 3, img: doctorImages[0] },
+  { r: 16, c: 7, img: doctorImages[4] },
+  { r: 18, c: 2, img: doctorImages[1] },
+  { r: 20, c: 5, img: doctorImages[5] },
+];
 
 const About = () => {
   const containerRef = useRef(null);
@@ -37,10 +74,51 @@ const About = () => {
       snap: { innerText: 1 },
       ease: 'power1.out',
     });
+
+    // Specialized Doctors Grid Scroll Animation
+    const docElems = document.querySelectorAll('.doctor-scroll-elem');
+    docElems.forEach((elem) => {
+      const image = elem.querySelector('img');
+      if (!image) return;
+
+      const xTransform = gsap.utils.random(-120, 120);
+
+      gsap.set(image, {
+        transformOrigin: `${xTransform < 0 ? '0%' : '100%'} 50%`,
+      });
+
+      gsap.to(image, {
+        scale: 0,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: image,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1,
+        },
+      });
+
+      gsap.to(image, {
+        xPercent: xTransform,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: image,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1,
+        },
+      });
+    });
+
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 300);
+
+    return () => clearTimeout(timer);
   }, { scope: containerRef });
 
   return (
-    <div ref={containerRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+    <div ref={containerRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-20">
       
       {/* 1. Hero / Vision Banner */}
       <div className="relative rounded-3xl bg-black text-white overflow-hidden p-8 sm:p-16 text-left border border-slate-800 shadow-xl">
@@ -173,7 +251,7 @@ const About = () => {
       </div>
 
       {/* 3. Academic Affiliation & Facilities Details */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center text-left py-6">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center text-left py-4">
         <div className="slide-in-left lg:col-span-6 section-header-anim space-y-6">
           <h2 className="text-3xl font-black text-teal-950 font-heading leading-tight">
             Ibadat International University Affiliated Healthcare
@@ -196,11 +274,10 @@ const About = () => {
         </div>
 
         <div className="slide-in-right lg:col-span-6 relative">
-          {/* Visual card mockup demonstrating high aesthetics */}
-          <div className="fade-up-anim bg-black text-white rounded-3xl border border-slate-800 p-8 sm:p-16 text-center space-y-8 relative overflow-hidden shadow-2xl z-0">
+          <div className="fade-up-anim bg-black text-white rounded-3xl border border-slate-800 p-8 sm:p-14 text-center space-y-6 relative overflow-hidden shadow-2xl z-0">
             <div className="absolute top-0 right-0 w-48 h-48 bg-teal-800/10 rounded-full blur-3xl -z-10"></div>
             <div className="absolute -bottom-10 -left-10 w-48 h-48 bg-teal-950/20 rounded-full blur-3xl -z-10"></div>
-            <div className="space-y-4">
+            <div className="space-y-3">
               <h4 className="text-teal-400 font-bold uppercase tracking-widest text-xs">Administrative Services</h4>
               <h3 className="text-xl sm:text-2xl font-black font-heading leading-snug">Hospital Dispatch Desk Sihala</h3>
               <p className="text-xs text-slate-400 leading-relaxed font-body">
@@ -216,8 +293,51 @@ const About = () => {
         </div>
       </div>
 
+      {/* 4. Specialized Doctors Showcase — Heading on Top (Black Color, No Eyebrow) + Free Floating Scroll Grid */}
+      <div className="space-y-8 pt-6">
+        {/* Heading on Top in Black */}
+        <div className="text-center space-y-2">
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-black font-heading tracking-tight text-black uppercase leading-tight">
+            OUR SPECIALIZED DOCTORS
+          </h2>
+          <p className="text-slate-500 text-sm sm:text-base max-w-xl mx-auto font-body">
+            Distinguished medical practitioners across Cardiology, Dermatology, Orthopedics, and Advanced Diagnostics.
+          </p>
+        </div>
+
+        {/* 8-Column Grid spanning 20 rows — Floating Doctor Images with Scroll Animation */}
+        <div className="w-full relative py-4">
+          <div 
+            className="grid grid-cols-8 gap-3 sm:gap-6 p-2 relative z-0"
+            style={{
+              gridTemplateRows: 'repeat(20, 32vh)',
+            }}
+          >
+            {gridItems.map((item, idx) => (
+              <div
+                key={idx}
+                className="doctor-scroll-elem col-span-1 row-span-1 w-full h-full min-h-[160px]"
+                style={{
+                  gridRow: item.r,
+                  gridColumn: item.c,
+                }}
+              >
+                <img
+                  src={item.img}
+                  alt="Specialist Doctor"
+                  className="w-full h-full object-cover rounded-2xl shadow-xl will-change-transform pointer-events-none"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
     </div>
   );
 };
 
 export default About;
+
+
+

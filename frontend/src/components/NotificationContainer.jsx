@@ -153,8 +153,11 @@ const NotificationContainer = () => {
           width: 52,
           height: 52,
           borderRadius: 26,
-          background: '#000000',
-          boxShadow: '0 8px 30px rgba(0, 0, 0, 0.5), 0 2px 10px rgba(0, 0, 0, 0.35)',
+          background: 'rgba(15, 23, 42, 0.65)',
+          backdropFilter: 'blur(24px) saturate(180%)',
+          WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+          border: '1px solid rgba(255, 255, 255, 0.25)',
+          boxShadow: '0 12px 35px rgba(0, 0, 0, 0.25), 0 4px 12px rgba(0, 0, 0, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.3)',
         }}
       >
         <img

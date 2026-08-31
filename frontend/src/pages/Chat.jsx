@@ -9,7 +9,7 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [loading, setLoading] = useState(false);
-  const chatEndRef = useRef(null);
+  const chatContainerRef = useRef(null);
 
   useEffect(() => {
     const fetchHistory = async () => {
@@ -36,9 +36,14 @@ const Chat = () => {
     }
   }, [user]);
 
-  // Autoscroll to bottom
+  // Autoscroll inner chat box to bottom without affecting window scroll
   useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTo({
+        top: chatContainerRef.current.scrollHeight,
+        behavior: 'smooth'
+      });
+    }
   }, [messages, loading]);
 
   const handleSendMessage = async (e) => {
@@ -148,8 +153,9 @@ const Chat = () => {
 
       {/* Main Conversation Canvas */}
       <div 
+        ref={chatContainerRef}
         data-lenis-prevent
-        className="flex-1 bg-white rounded-3xl border border-slate-100 p-6 overflow-y-auto space-y-4 shadow-xs flex flex-col justify-start"
+        className="flex-1 bg-white rounded-3xl border border-slate-100 p-6 overflow-y-auto space-y-4 shadow-xs flex flex-col justify-start max-h-[550px] sm:max-h-[600px]"
       >
         
         {messages.map((msg, i) => {
@@ -204,8 +210,6 @@ const Chat = () => {
             </div>
           </div>
         )}
-
-        <div ref={chatEndRef} />
       </div>
 
       {/* Input Tray */}

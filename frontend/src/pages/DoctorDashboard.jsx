@@ -6,6 +6,42 @@ import { Calendar, User, CheckCircle2, Clock, XCircle, FileText, Stethoscope, Ma
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 
+const maleDoctorImages = [
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSD0_nQSNjfe9_gTRP5YnNwyaLBK-tuhUd-ukI_GrDL1w&s=10',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsMueobxxhtTLPcipDSyNNQWi3TcYac0N8SVr1l9HyxA&s=10',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMwQxnHe9ym8oigWf7ILv2jAO6E-cn28ZZDQzyoxyvOA&s=10',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK6Cl7f_sjJnJRiW-qe-GtuziKhfKA1ng12bbchZiUEg&s=10'
+];
+
+const femaleDoctorImages = [
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQh1NCp8gkWufrf-rAc3eNTtZe0jc7a7Ca3D5EDhKZxuQ&s=10',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7dV0XrI72GErOcIy0HHYOin75ql6aiPuUcf7MHFrBgQ&s=10',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyOffV_WcnwwBfwLSPTzfnSXf5ejnCsXlphGJLRdkHWw&s=10',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHn9mWsgN1YGLASXNpEnKpmvQKg17JcEGtsmnAXpAGWw&s=10'
+];
+
+const getDoctorAvatar = (user) => {
+  const name = typeof user === 'string' ? user : (user?.name || '');
+  const gender = typeof user === 'object' ? user?.gender : '';
+
+  if (name.includes('Sara Khan')) return femaleDoctorImages[0];
+  if (name.includes('Ayesha Bilal')) return femaleDoctorImages[1];
+  if (name.includes('Nida Yasir')) return femaleDoctorImages[2];
+  if (name.includes('Zainab Raza')) return femaleDoctorImages[3];
+
+  const isFemale = gender === 'female' || ['sara', 'ayesha', 'nida', 'zainab', 'sarah', 'aisha', 'elena'].some(f => name.toLowerCase().includes(f));
+  
+  if (user?.avatar && !user.avatar.includes('R0k6mJECkDvvxLWpl2C6oVOgbs49inNcoZtvJRFileqS3TAkNr3qOH87dG') && !user.avatar.includes('ui-avatars')) {
+    if (!isFemale && femaleDoctorImages.includes(user.avatar)) return maleDoctorImages[0];
+    if (isFemale && maleDoctorImages.includes(user.avatar)) return femaleDoctorImages[0];
+    return user.avatar;
+  }
+  
+  const pool = isFemale ? femaleDoctorImages : maleDoctorImages;
+  const hash = Math.abs((name || 'Dr').split('').reduce((acc, c) => acc + c.charCodeAt(0), 0));
+  return pool[hash % pool.length];
+};
+
 const DoctorDashboard = () => {
   const { user } = useAuth();
   const { showNotification } = useNotification();
@@ -149,7 +185,7 @@ const DoctorDashboard = () => {
         <div className="absolute top-0 right-0 w-44 h-44 bg-teal-50/30 rounded-bl-full -z-10"></div>
         <div className="flex items-center gap-5">
           <img
-            src={user.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=115E59&color=fff`}
+            src={getDoctorAvatar(user)}
             alt={user.name}
             className="w-20 h-20 rounded-full border-2 border-teal-800 object-cover shrink-0 shadow-sm"
           />

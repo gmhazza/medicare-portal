@@ -114,14 +114,6 @@ const getUserProfile = async (id, role) => {
         throw error;
     }
 }
-const getAllAppointmentOfUser = async (user_id) => {
-    try {
-        const result = await appointment.find({ patient: user_id }).populate('doctor', '_id name pillar avatar').populate('service');
-        return result;
-    } catch (error) {
-        throw error;
-    }
-}
 const getPillarByService = async (service_id) => {
     try {
         const result = await service.findOne({_id: service_id});
@@ -156,7 +148,7 @@ const getAllDoctor = async () => {
 }
 const getAllAppointment = async () => {
     try {
-        const result = await appointment.find({}).populate('patient doctor service payment');
+        const result = await appointment.find({ status: { $ne: 'cancelled' } }).populate('patient doctor service payment');
         return result;
     } catch (error) {
         throw error;
@@ -174,6 +166,26 @@ const getPayment = async (appointment_id) => {
 const getAllAppointmentOfDoctor = async (doctor_id) => {
     try {
         const result = await appointment.find({ doctor: doctor_id, status: 'pending'}).populate('patient', 'name');
+        return result;
+    } catch (error) {
+        throw error;
+    }
+}
+const getAllAppointmentOfUser = async (user_id) => {
+    try {
+        const result = await appointment.find({ patient: user_id, status: { $ne: 'cancelled' } }).populate('doctor service payment');
+        return result;
+    } catch (error) {
+        throw error;
+    }
+}
+const deleteAppointment = async (appointment_id) => {
+    try {
+        const appt = await appointment.findById(appointment_id);
+        if (appt && appt.payment) {
+            await payment.findByIdAndDelete(appt.payment);
+        }
+        const result = await appointment.findByIdAndDelete(appointment_id);
         return result;
     } catch (error) {
         throw error;
@@ -418,5 +430,5 @@ module.exports = {
     updateService, updateAppointment, updateDoctorAvailability, payBill, markContactFormAsSeen,
     checkDoctorDailyAvailability,
     markAppointmentAsCompleted,
-    deleteAdmin, deleteDoctor, deleteMessages, deleteUser, deleteContactForm
+    deleteAdmin, deleteDoctor, deleteMessages, deleteUser, deleteContactForm, deleteAppointment
 }

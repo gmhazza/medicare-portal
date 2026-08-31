@@ -63,18 +63,34 @@ const PageTransition = () => {
     return () => window.removeEventListener('page-transition', handleTransition);
   }, [navigate, location.pathname]);
 
-  // After route changes, play exit animation
+  // Handle initial site load and route changes
   useEffect(() => {
     if (isFirstMount.current) {
       isFirstMount.current = false;
+      const hasVisited = sessionStorage.getItem('medicare_site_visited');
+      if (!hasVisited) {
+        // Initial site visit opening animation
+        sessionStorage.setItem('medicare_site_visited', 'true');
+        if (topRef.current && bottomRef.current && logoRef.current) {
+          const top = topRef.current;
+          const bottom = bottomRef.current;
+          const logo = logoRef.current;
+          top.style.display = 'block';
+          bottom.style.display = 'block';
+          logo.style.display = 'flex';
+          gsap.set(top, { height: '50%' });
+          gsap.set(bottom, { height: '50%' });
+          gsap.set(logo, { opacity: 1, scale: 1 });
+          setTimeout(() => playExit(), 100);
+        }
+      }
       return;
     }
 
     // Only play exit if we triggered the transition
     if (isAnimatingRef.current && pendingPathRef.current) {
       pendingPathRef.current = null;
-      // Small delay to let new page render
-      setTimeout(() => playExit(), 50);
+      setTimeout(() => playExit(), 30);
     }
   }, [location.pathname]);
 
@@ -98,23 +114,23 @@ const PageTransition = () => {
 
     const tl = gsap.timeline();
 
-    // Both divs close in simultaneously
+    // Both divs close in simultaneously (Faster snappy duration: 0.22s)
     tl.to([top, bottom], {
       height: '50%',
-      duration: 0.38,
+      duration: 0.22,
       ease: 'power3.inOut',
     })
     // Logo pops in
     .to(logo, {
       opacity: 1,
       scale: 1,
-      duration: 0.2,
+      duration: 0.12,
       ease: 'back.out(1.6)',
-    }, '-=0.08')
+    }, '-=0.06')
     // Brief hold then navigate
     .call(() => {
       if (onMidpoint) onMidpoint();
-    }, null, '+=0.12');
+    }, null, '+=0.06');
   };
 
   const playExit = () => {
@@ -133,20 +149,20 @@ const PageTransition = () => {
       }
     });
 
-    // Logo fades out
+    // Logo fades out (Faster duration: 0.10s)
     tl.to(logo, {
       opacity: 0,
       scale: 0.7,
-      duration: 0.15,
+      duration: 0.10,
       ease: 'power2.in',
-      delay: 0.1,
+      delay: 0.04,
     })
-    // Both divs retract
+    // Both divs retract (Faster duration: 0.22s)
     .to([top, bottom], {
       height: '0%',
-      duration: 0.38,
+      duration: 0.22,
       ease: 'power3.inOut',
-    }, '-=0.05');
+    }, '-=0.04');
   };
 
   return (

@@ -13,7 +13,7 @@ const {
 
     checkDoctorDailyAvailability,
     
-    deleteAdmin, deleteDoctor, deleteMessages, deleteUser, deleteContactForm
+    deleteAdmin, deleteDoctor, deleteMessages, deleteUser, deleteContactForm, deleteAppointment
 } = require('../../database/queries');
 const { 
     authenticate, checkAuthentication, jwt
@@ -257,18 +257,15 @@ router.post('/create/appointment', authenticate, async (req, res) => {
 });
 router.post('/appointment/mark/cancel', authenticate, async (req, res) => {
     try {
-        if (req.user.role !== 'user') {
-            return res.status(403).json({ message: 'Forbidden: You are not an user' });
+        if (req.user.role !== 'user' && req.user.role !== 'admin') {
+            return res.status(403).json({ message: 'Forbidden: You cannot perform this action' });
         }
         const appointmentPatient = await getUserFromAppointment(req.body.appointment_id);
-        if (appointmentPatient._id.toString() === req.user._id.toString()) {
-            const result = await updateAppointment({
-                appointment_id: req.body.appointment_id,
-                status: 'cancelled'
-            });
-            res.status(200).json(result);
+        if (!appointmentPatient || appointmentPatient._id.toString() === req.user._id.toString() || req.user.role === 'admin') {
+            const result = await deleteAppointment(req.body.appointment_id);
+            res.status(200).json({ message: 'Appointment removed successfully', result });
         } else {
-            throw new Error('You can not mark this appointment');
+            throw new Error('You cannot remove this appointment');
         }
     } catch (error) {
         res.status(500).json({

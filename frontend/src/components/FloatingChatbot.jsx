@@ -1,3 +1,4 @@
+import MedicareRobot3D from './MedicareRobot3D';
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -10,7 +11,7 @@ const FloatingChatbot = () => {
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [loading, setLoading] = useState(false);
-  const chatEndRef = useRef(null);
+  const chatContainerRef = useRef(null);
 
   // Load chat history on mount or user change
   useEffect(() => {
@@ -35,10 +36,13 @@ const FloatingChatbot = () => {
     fetchHistory();
   }, [user, isOpen]); // Reload history when opened or user changes
 
-  // Auto-scroll to bottom
+  // Auto-scroll inside floating chatbot container only
   useEffect(() => {
-    if (isOpen) {
-      chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (isOpen && chatContainerRef.current) {
+      chatContainerRef.current.scrollTo({
+        top: chatContainerRef.current.scrollHeight,
+        behavior: 'smooth'
+      });
     }
   }, [messages, loading, isOpen]);
 
@@ -107,20 +111,14 @@ const FloatingChatbot = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 font-body">
-      {/* Floating Action Button */}
+    <div className="fixed bottom-8 right-8 z-50 font-body">
+      {/* Floating Action Button - 3D Interactive Medicare Robot */}
       {!isOpen && (
-        <button
+        <MedicareRobot3D 
           onClick={() => setIsOpen(true)}
-          className="flex items-center justify-center w-20 h-20 bg-transparent hover:scale-110 transition-all duration-300 relative group cursor-pointer overflow-hidden filter drop-shadow-[0_12px_12px_rgba(0,0,0,0.65)] animate-float"
-          title="AI Health Assistant"
-        >
-          <img 
-            src="/imgvid/medicarechatbot.png" 
-            alt="AI Assistant" 
-            className="w-full h-full object-contain"
-          />
-        </button>
+          isReplying={loading}
+          className="filter drop-shadow-[0_8px_16px_rgba(13,148,136,0.25)]"
+        />
       )}
 
       {/* Expandable Chat Card */}
@@ -164,6 +162,7 @@ const FloatingChatbot = () => {
 
           {/* Messages Area */}
           <div 
+            ref={chatContainerRef}
             data-lenis-prevent
             className="flex-1 bg-slate-50 overflow-y-auto p-4 space-y-3.5 flex flex-col justify-start"
           >
@@ -228,7 +227,6 @@ const FloatingChatbot = () => {
                 </div>
               </div>
             )}
-            <div ref={chatEndRef} />
           </div>
 
           {/* Guest prompt overlay if not signed in */}

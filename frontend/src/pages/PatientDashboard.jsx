@@ -7,6 +7,42 @@ import { Calendar, Heart, ShieldCheck, Activity, Trash2, Clock, CheckCircle2, Us
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 
+const maleDoctorImages = [
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSD0_nQSNjfe9_gTRP5YnNwyaLBK-tuhUd-ukI_GrDL1w&s=10',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsMueobxxhtTLPcipDSyNNQWi3TcYac0N8SVr1l9HyxA&s=10',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMwQxnHe9ym8oigWf7ILv2jAO6E-cn28ZZDQzyoxyvOA&s=10',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK6Cl7f_sjJnJRiW-qe-GtuziKhfKA1ng12bbchZiUEg&s=10'
+];
+
+const femaleDoctorImages = [
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQh1NCp8gkWufrf-rAc3eNTtZe0jc7a7Ca3D5EDhKZxuQ&s=10',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7dV0XrI72GErOcIy0HHYOin75ql6aiPuUcf7MHFrBgQ&s=10',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyOffV_WcnwwBfwLSPTzfnSXf5ejnCsXlphGJLRdkHWw&s=10',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHn9mWsgN1YGLASXNpEnKpmvQKg17JcEGtsmnAXpAGWw&s=10'
+];
+
+const getDoctorAvatar = (doc) => {
+  const name = typeof doc === 'string' ? doc : (doc?.name || '');
+  const gender = typeof doc === 'object' ? doc?.gender : '';
+
+  if (name.includes('Sara Khan')) return femaleDoctorImages[0];
+  if (name.includes('Ayesha Bilal')) return femaleDoctorImages[1];
+  if (name.includes('Nida Yasir')) return femaleDoctorImages[2];
+  if (name.includes('Zainab Raza')) return femaleDoctorImages[3];
+
+  const isFemale = gender === 'female' || ['sara', 'ayesha', 'nida', 'zainab', 'sarah', 'aisha', 'elena'].some(f => name.toLowerCase().includes(f));
+  
+  if (doc?.avatar && !doc.avatar.includes('R0k6mJECkDvvxLWpl2C6oVOgbs49inNcoZtvJRFileqS3TAkNr3qOH87dG') && !doc.avatar.includes('ui-avatars')) {
+    if (!isFemale && femaleDoctorImages.includes(doc.avatar)) return maleDoctorImages[0];
+    if (isFemale && maleDoctorImages.includes(doc.avatar)) return femaleDoctorImages[0];
+    return doc.avatar;
+  }
+  
+  const pool = isFemale ? femaleDoctorImages : maleDoctorImages;
+  const hash = Math.abs((name || 'Dr').split('').reduce((acc, c) => acc + c.charCodeAt(0), 0));
+  return pool[hash % pool.length];
+};
+
 const PatientDashboard = () => {
   const { user } = useAuth();
   const { showNotification } = useNotification();
@@ -70,9 +106,10 @@ const PatientDashboard = () => {
   }, { scope: containerRef, dependencies: [loading] });
 
   const handleCancelAppointment = async (id) => {
-    if (window.confirm("Are you sure you want to cancel this appointment?")) {
+    if (window.confirm("Are you sure you want to cancel and remove this appointment?")) {
       try {
         await api.cancelAppointment(id);
+        showNotification('Appointment cancelled and removed');
         await fetchDashboardData();
       } catch (err) {
         alert(err.message || "Failed to cancel appointment.");
@@ -209,7 +246,7 @@ const PatientDashboard = () => {
 
   const filteredAppointments = appointments.filter(appt => {
     if (activeTab === 'appointments') {
-      return appt.status === 'pending' || appt.status === 'cancelled';
+      return appt.status === 'pending';
     } else {
       return appt.status === 'completed';
     }
@@ -330,7 +367,7 @@ const PatientDashboard = () => {
               <Calendar className="w-10 h-10 text-slate-300 mx-auto" />
               <p className="text-slate-500 text-sm">
                 {activeTab === 'appointments' 
-                  ? 'You do not have any pending or cancelled appointments.' 
+                  ? 'You do not have any pending appointments.' 
                   : 'You do not have any completed medical reports yet.'
                 }
               </p>
@@ -358,7 +395,7 @@ const PatientDashboard = () => {
                     {/* Doctor Info */}
                     <div className="md:col-span-4 flex items-center gap-3.5">
                       <img
-                        src={appt.doctor?.avatar || 'https://ui-avatars.com/api/?name=Dr+Staff'}
+                        src={getDoctorAvatar(appt.doctor)}
                         alt={appt.doctor?.name}
                         className="w-12 h-12 rounded-full object-cover border border-slate-100 shrink-0"
                       />
@@ -569,7 +606,7 @@ const PatientDashboard = () => {
             {/* Doctor & Service Info */}
             <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100 space-y-2">
               <div className="flex items-center gap-3">
-                <img src={reportDoc?.avatar || 'https://ui-avatars.com/api/?name=Dr+Staff'} alt={reportDoc?.name} className="w-10 h-10 rounded-full object-cover border border-slate-200" />
+                <img src={getDoctorAvatar(reportDoc)} alt={reportDoc?.name} className="w-10 h-10 rounded-full object-cover border border-slate-200 shrink-0" />
                 <div>
                   <h4 className="text-sm font-bold text-slate-800">{reportDoc?.name || 'Assigned Specialist'}</h4>
                   <p className="text-[10px] text-teal-800 font-semibold capitalize">{reportDoc?.pillar || 'General'} Division</p>

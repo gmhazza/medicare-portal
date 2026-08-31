@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -6,9 +6,7 @@ import * as z from 'zod';
 import { useAuth } from '../context/AuthContext';
 import { useNotification } from '../context/NotificationContext';
 import api from '../services/api';
-import { Calendar, Clock, AlertCircle, FileText, CheckCircle2, ChevronRight, Activity, ShieldCheck } from 'lucide-react';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
+import { Calendar, Clock, AlertCircle, FileText, CheckCircle2, ChevronRight, Activity } from 'lucide-react';
 
 const appointmentSchema = z.object({
   service: z.string().min(1, { message: 'Please select a medical service.' }),
@@ -18,6 +16,42 @@ const appointmentSchema = z.object({
   note: z.string().max(500, { message: 'Notes must not exceed 500 characters.' }).optional(),
 });
 
+const maleDoctorImages = [
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSD0_nQSNjfe9_gTRP5YnNwyaLBK-tuhUd-ukI_GrDL1w&s=10',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsMueobxxhtTLPcipDSyNNQWi3TcYac0N8SVr1l9HyxA&s=10',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMwQxnHe9ym8oigWf7ILv2jAO6E-cn28ZZDQzyoxyvOA&s=10',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK6Cl7f_sjJnJRiW-qe-GtuziKhfKA1ng12bbchZiUEg&s=10'
+];
+
+const femaleDoctorImages = [
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQh1NCp8gkWufrf-rAc3eNTtZe0jc7a7Ca3D5EDhKZxuQ&s=10',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7dV0XrI72GErOcIy0HHYOin75ql6aiPuUcf7MHFrBgQ&s=10',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyOffV_WcnwwBfwLSPTzfnSXf5ejnCsXlphGJLRdkHWw&s=10',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHn9mWsgN1YGLASXNpEnKpmvQKg17JcEGtsmnAXpAGWw&s=10'
+];
+
+const getDoctorAvatar = (doc) => {
+  const name = typeof doc === 'string' ? doc : (doc?.name || '');
+  const gender = typeof doc === 'object' ? doc?.gender : '';
+
+  if (name.includes('Sara Khan')) return femaleDoctorImages[0];
+  if (name.includes('Ayesha Bilal')) return femaleDoctorImages[1];
+  if (name.includes('Nida Yasir')) return femaleDoctorImages[2];
+  if (name.includes('Zainab Raza')) return femaleDoctorImages[3];
+
+  const isFemale = gender === 'female' || ['sara', 'ayesha', 'nida', 'zainab', 'sarah', 'aisha', 'elena'].some(f => name.toLowerCase().includes(f));
+  
+  if (doc?.avatar && !doc.avatar.includes('R0k6mJECkDvvxLWpl2C6oVOgbs49inNcoZtvJRFileqS3TAkNr3qOH87dG') && !doc.avatar.includes('ui-avatars')) {
+    if (!isFemale && femaleDoctorImages.includes(doc.avatar)) return maleDoctorImages[0];
+    if (isFemale && maleDoctorImages.includes(doc.avatar)) return femaleDoctorImages[0];
+    return doc.avatar;
+  }
+  
+  const pool = isFemale ? femaleDoctorImages : maleDoctorImages;
+  const hash = Math.abs((name || 'Dr').split('').reduce((acc, c) => acc + c.charCodeAt(0), 0));
+  return pool[hash % pool.length];
+};
+
 const BookAppointment = () => {
   const { user } = useAuth();
   const { showNotification } = useNotification();
@@ -25,53 +59,12 @@ const BookAppointment = () => {
   const [services, setServices] = useState([]);
   const [successAppt, setSuccessAppt] = useState(null);
   const [submitError, setSubmitError] = useState(null);
-  const containerRef = useRef(null);
 
   const { register, handleSubmit, formState: { errors, isSubmitting }, watch } = useForm({
     resolver: zodResolver(appointmentSchema),
   });
 
   const selectedServiceId = watch('service');
-
-  useGSAP(() => {
-    if (successAppt) return; // Skip entry animations if confirmed screen is active
-
-    // Booking Header
-    gsap.from('.booking-header', {
-      opacity: 0,
-      y: -30,
-      duration: 0.8,
-      ease: 'power3.out'
-    });
-
-    // Form Container Entrance
-    gsap.from('.booking-form', {
-      opacity: 0,
-      x: -30,
-      duration: 0.8,
-      ease: 'power3.out'
-    });
-
-    // Form Steps Stagger
-    gsap.from('.form-step', {
-      opacity: 0,
-      y: 15,
-      stagger: 0.1,
-      duration: 0.6,
-      ease: 'power3.out',
-      delay: 0.2
-    });
-
-    // Sidebar Widgets entrance
-    gsap.from('.booking-sidebar-widget', {
-      opacity: 0,
-      x: 30,
-      stagger: 0.15,
-      duration: 0.8,
-      ease: 'power3.out',
-      delay: 0.2
-    });
-  }, { scope: containerRef, dependencies: [successAppt, services] });
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -103,11 +96,15 @@ const BookAppointment = () => {
           const realDoctor = await api.getDoctorById(backendDoctorId);
           if (realDoctor) {
             doctorName = realDoctor.name || doctorName;
-            doctorAvatar = realDoctor.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(realDoctor.name)}&background=115E59&color=fff`;
+            doctorAvatar = getDoctorAvatar(realDoctor);
           }
         } catch (fetchErr) {
           console.warn('Could not fetch assigned doctor details:', fetchErr);
         }
+      }
+
+      if (!doctorAvatar) {
+        doctorAvatar = getDoctorAvatar(doctorName);
       }
       
       setSuccessAppt({
@@ -150,12 +147,14 @@ const BookAppointment = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12 space-y-10">
+    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12 space-y-10">
       
-      {/* Header */}
-      <div className="booking-header text-left space-y-2 border-b border-slate-100 pb-6">
-        <h1 className="text-4xl font-black text-teal-950 font-heading mt-1">Book a Consultation</h1>
-        <p className="text-slate-500 text-xs sm:text-sm">
+      {/* Header — Centered */}
+      <div className="booking-header text-center space-y-3 pb-2">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-teal-950 font-heading">
+          Book a Consultation
+        </h1>
+        <p className="text-slate-500 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
           Select a medical service. Our booking algorithm automatically schedules you with an available physician.
         </p>
       </div>
@@ -175,9 +174,9 @@ const BookAppointment = () => {
           {/* Assigned Doctor details */}
           <div className="bg-slate-50 rounded-2xl p-6 max-w-md mx-auto border border-slate-100 flex items-center gap-4 text-left">
             <img
-              src={successAppt.avatar || 'https://ui-avatars.com/api/?name=Dr+Consultant'}
+              src={successAppt.avatar || getDoctorAvatar(successAppt.doctor)}
               alt={successAppt.doctor}
-              className="w-14 h-14 rounded-full border border-teal-800/20 object-cover shrink-0"
+              className="w-14 h-14 rounded-full border border-teal-800/20 object-cover shrink-0 shadow-xs"
             />
             <div>
               <p className="text-xs text-slate-400 font-semibold uppercase tracking-wider">Assigned Specialist</p>
@@ -206,11 +205,9 @@ const BookAppointment = () => {
           </div>
         </div>
       ) : (
-        /* BOOKING FORM */
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          
-          {/* Main Booking Form */}
-          <form onSubmit={handleSubmit(onSubmit)} className="booking-form lg:col-span-8 bg-white rounded-3xl border border-slate-100 p-6 sm:p-8 shadow-md space-y-6 text-left">
+        /* BOOKING FORM — Centered & Full Width */
+        <div className="w-full">
+          <form onSubmit={handleSubmit(onSubmit)} className="booking-form w-full bg-white rounded-3xl border border-slate-100 p-6 sm:p-10 shadow-xl space-y-6 text-left">
             
             {/* Error message */}
             {submitError && (
@@ -304,39 +301,6 @@ const BookAppointment = () => {
             </div>
 
           </form>
-
-          {/* Sidebar Guidelines */}
-          <div className="lg:col-span-4 space-y-6 text-left">
-            <div className="booking-sidebar-widget bg-black text-white rounded-3xl border border-slate-800 p-6 space-y-4 relative overflow-hidden z-0">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-teal-800/10 rounded-full blur-2xl -z-10"></div>
-              <h4 className="text-xs font-bold text-teal-400 uppercase tracking-wider">Booking Guidelines</h4>
-              
-              <div className="space-y-3.5 text-xs text-slate-400">
-                <div className="flex gap-2">
-                  <span className="text-teal-400 font-extrabold">1.</span>
-                  <p>Our algorithm schedules appointments only with active, online doctors matching your selected clinical pillar.</p>
-                </div>
-                <div className="flex gap-2">
-                  <span className="text-teal-400 font-extrabold">2.</span>
-                  <p>A daily limit of 5 appointments per doctor is active in the database checks (`checkDoctorDailyAvailability`).</p>
-                </div>
-                <div className="flex gap-2">
-                  <span className="text-teal-400 font-extrabold">3.</span>
-                  <p>You can review and track appointment statuses in your Personal Patient Dashboard.</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="booking-sidebar-widget bg-black text-white rounded-3xl border border-slate-800 p-6 space-y-3 relative overflow-hidden z-0">
-              <div className="absolute -bottom-5 -left-5 w-32 h-32 bg-teal-950/20 rounded-full blur-2xl -z-10"></div>
-              <ShieldCheck className="w-8 h-8 text-teal-400" />
-              <h4 className="text-sm font-bold text-teal-100 font-heading">HIPAA Compliant Data</h4>
-              <p className="text-xs text-slate-400 leading-normal">
-                Your medical record entries are stored in encrypted collections and are only shared with your assigned practitioner.
-              </p>
-            </div>
-          </div>
-
         </div>
       )}
 

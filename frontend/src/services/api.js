@@ -34,12 +34,12 @@ const DEFAULT_SERVICES = [
 ];
 
 const DEFAULT_DOCTORS = [
-  { _id: '64d1f2b5a1b2c3d4e5f60011', name: 'Dr. Sarah Jenkins', email: 'sarah.j@medicare.com', pillar: 'cardiology', gender: 'female', avatar: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=250' },
-  { _id: '64d1f2b5a1b2c3d4e5f60012', name: 'Dr. Robert Chen', email: 'robert.c@medicare.com', pillar: 'dermatology', gender: 'male', avatar: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=250' },
-  { _id: '64d1f2b5a1b2c3d4e5f60013', name: 'Dr. Elena Rostova', email: 'elena.r@medicare.com', pillar: 'orthopedics', gender: 'female', avatar: 'https://images.unsplash.com/photo-1594824813573-246434de83fb?auto=format&fit=crop&q=80&w=250' },
-  { _id: '64d1f2b5a1b2c3d4e5f60014', name: 'Dr. Marcus Vance', email: 'marcus.v@medicare.com', pillar: 'diagnostics', gender: 'male', avatar: 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&q=80&w=250' },
-  { _id: '64d1f2b5a1b2c3d4e5f60015', name: 'Dr. Aisha Rahman', email: 'aisha.r@medicare.com', pillar: 'telehealth', gender: 'female', avatar: 'https://images.unsplash.com/photo-1614608682850-e0d6ed316d47?auto=format&fit=crop&q=80&w=250' },
-  { _id: '64d1f2b5a1b2c3d4e5f60016', name: 'Dr. Alan Mercer', email: 'alan.m@medicare.com', pillar: 'general', gender: 'male', avatar: 'https://images.unsplash.com/photo-1582750433449-64c676996edb?auto=format&fit=crop&q=80&w=250' },
+  { _id: '64d1f2b5a1b2c3d4e5f60011', name: 'Dr. Sara Khan', email: 'sara.k@medicare.com', pillar: 'cardiology', gender: 'female', avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQh1NCp8gkWufrf-rAc3eNTtZe0jc7a7Ca3D5EDhKZxuQ&s=10' },
+  { _id: '64d1f2b5a1b2c3d4e5f60012', name: 'Dr. Ayesha Bilal', email: 'ayesha.b@medicare.com', pillar: 'dermatology', gender: 'female', avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7dV0XrI72GErOcIy0HHYOin75ql6aiPuUcf7MHFrBgQ&s=10' },
+  { _id: '64d1f2b5a1b2c3d4e5f60013', name: 'Dr. Nida Yasir', email: 'nida.y@medicare.com', pillar: 'orthopedics', gender: 'female', avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyOffV_WcnwwBfwLSPTzfnSXf5ejnCsXlphGJLRdkHWw&s=10' },
+  { _id: '64d1f2b5a1b2c3d4e5f60014', name: 'Dr. Marcus Vance', email: 'marcus.v@medicare.com', pillar: 'diagnostics', gender: 'male', avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSD0_nQSNjfe9_gTRP5YnNwyaLBK-tuhUd-ukI_GrDL1w&s=10' },
+  { _id: '64d1f2b5a1b2c3d4e5f60015', name: 'Dr. Zainab Raza', email: 'zainab.r@medicare.com', pillar: 'telehealth', gender: 'female', avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHn9mWsgN1YGLASXNpEnKpmvQKg17JcEGtsmnAXpAGWw&s=10' },
+  { _id: '64d1f2b5a1b2c3d4e5f60016', name: 'Dr. Robert Chen', email: 'robert.c@medicare.com', pillar: 'general', gender: 'male', avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsMueobxxhtTLPcipDSyNNQWi3TcYac0N8SVr1l9HyxA&s=10' },
 ];
 
 // Helper to initialize local storage
@@ -47,9 +47,13 @@ const initLocalStorage = () => {
   if (!localStorage.getItem('medicare_services')) {
     localStorage.setItem('medicare_services', JSON.stringify(DEFAULT_SERVICES));
   }
-  if (!localStorage.getItem('medicare_doctors')) {
+  
+  // Refresh doctors list if old names exist in localStorage
+  const existingDocs = localStorage.getItem('medicare_doctors');
+  if (!existingDocs || existingDocs.includes('Sarah Jenkins') || existingDocs.includes('Elena Rostova')) {
     localStorage.setItem('medicare_doctors', JSON.stringify(DEFAULT_DOCTORS));
   }
+
   if (!localStorage.getItem('medicare_appointments')) {
     localStorage.setItem('medicare_appointments', JSON.stringify([]));
   }
