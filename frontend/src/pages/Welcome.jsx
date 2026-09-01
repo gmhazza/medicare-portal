@@ -22,35 +22,35 @@ const Welcome = () => {
 
   // Render selection portal if not logged in
   return (
-    <div className="min-h-[calc(100vh-80px)] flex flex-col justify-center items-center py-16 px-4 sm:px-6 lg:px-8 bg-[#fafffd] relative overflow-hidden">
+    <div className="min-h-[calc(100vh-80px)] flex flex-col justify-center items-center py-12 sm:py-16 px-3 sm:px-6 lg:px-8 bg-[#fafffd] relative overflow-hidden">
 
 
       {/* Medicare Logo Branding - directly on page, no box */}
-      <div className="space-y-4 flex flex-col items-center text-center mb-12">
+      <div className="space-y-3 sm:space-y-4 flex flex-col items-center text-center mb-8 sm:mb-12">
         <img 
           src="/imgvid/medicarelogo.png" 
           alt="MediCare Logo" 
-          className="h-28 sm:h-36 w-auto object-contain transition-transform hover:scale-105 duration-300"
+          className="h-20 sm:h-36 w-auto object-contain transition-transform hover:scale-105 duration-300"
         />
-        <div className="space-y-3">
-          <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-teal-950 font-kanit">
+        <div className="space-y-2 sm:space-y-3">
+          <h1 className="text-3xl xs:text-4xl sm:text-6xl font-black tracking-tight text-teal-950 font-kanit">
             WELCOME TO MEDICARE
           </h1>
           <p className="text-teal-700 font-semibold tracking-wider uppercase text-xs sm:text-sm">
             Empowering Your Wellness Journey
           </p>
-          <p className="text-slate-400 text-sm sm:text-base max-w-lg mx-auto leading-relaxed">
+          <p className="text-slate-400 text-xs sm:text-base max-w-lg mx-auto leading-relaxed px-2">
             Access your medical dashboards, consult our 24/7 AI health assistant, or coordinate clinical care.
           </p>
         </div>
       </div>
 
       {/* Access Gateway Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-3xl w-full mb-10">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 max-w-3xl w-full mb-8 sm:mb-10 px-2 sm:px-0">
         {/* Patient Card */}
         <Link
           to="/auth"
-          className="flex flex-col items-center p-7 bg-black hover:bg-slate-900 text-white rounded-2xl border border-slate-800 hover:border-teal-500/40 shadow-xl transition-all hover:scale-103 cursor-pointer group relative overflow-hidden"
+          className="flex flex-col items-center p-5 sm:p-7 bg-black hover:bg-slate-900 text-white rounded-2xl border border-slate-800 hover:border-teal-500/40 shadow-xl transition-all hover:scale-103 cursor-pointer group relative overflow-hidden"
         >
           <div className="absolute top-0 right-0 w-20 h-20 bg-teal-500/5 rounded-full blur-xl -z-10 group-hover:bg-teal-500/10 transition-colors"></div>
           <div className="p-3 bg-teal-500/10 rounded-xl mb-3 border border-teal-500/20 group-hover:scale-110 transition-transform duration-300">

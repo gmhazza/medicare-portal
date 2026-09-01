@@ -42,27 +42,26 @@ const StaffAuth = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-80px)] flex justify-center items-center py-12 px-4 sm:px-6 lg:px-8 bg-[#fafffd] relative overflow-hidden">
-
+    <div className="min-h-[calc(100vh-80px)] flex justify-center items-center py-8 sm:py-12 px-3 sm:px-6 lg:px-8 bg-[#fafffd] relative overflow-hidden w-full max-w-[100vw]">
 
       <div className="max-w-md w-full bg-white rounded-3xl border border-slate-100 shadow-xl overflow-hidden text-left relative z-10">
         <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-teal-850 to-teal-600"></div>
 
         {/* Header */}
-        <div className="p-8 pb-4">
+        <div className="p-6 sm:p-8 pb-3 sm:pb-4">
           <div className="text-center space-y-2">
-            <h2 className="text-3xl font-black text-teal-950 font-heading">MediCare Staff Portal</h2>
+            <h2 className="text-2xl sm:text-3xl font-black text-teal-950 font-heading">MediCare Staff Portal</h2>
             <p className="text-xs text-slate-400">Secure gateway for medical practitioners and administrators</p>
           </div>
 
           {/* Role selector buttons */}
-          <div className="mt-8">
-            <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block text-center mb-3">Select Staff Role</label>
-            <div className="grid grid-cols-2 gap-3">
+          <div className="mt-6 sm:mt-8">
+            <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block text-center mb-2.5 sm:mb-3">Select Staff Role</label>
+            <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
               <button
                 type="button"
                 onClick={() => { setSelectedRole('doctor'); setSubmitError(null); }}
-                className={`py-3 px-4 text-sm font-bold rounded-2xl border flex items-center justify-center gap-2 transition-all cursor-pointer ${
+                className={`py-2.5 sm:py-3 px-3 sm:px-4 text-xs sm:text-sm font-bold rounded-2xl border flex items-center justify-center gap-1.5 sm:gap-2 transition-all cursor-pointer ${
                   selectedRole === 'doctor'
                     ? 'border-teal-200 bg-teal-50 text-teal-800 shadow-sm'
                     : 'border-slate-200 bg-white hover:bg-slate-50 text-slate-500'
@@ -74,7 +73,7 @@ const StaffAuth = () => {
               <button
                 type="button"
                 onClick={() => { setSelectedRole('admin'); setSubmitError(null); }}
-                className={`py-3 px-4 text-sm font-bold rounded-2xl border flex items-center justify-center gap-2 transition-all cursor-pointer ${
+                className={`py-2.5 sm:py-3 px-3 sm:px-4 text-xs sm:text-sm font-bold rounded-2xl border flex items-center justify-center gap-1.5 sm:gap-2 transition-all cursor-pointer ${
                   selectedRole === 'admin'
                     ? 'border-teal-200 bg-teal-50 text-teal-800 shadow-sm'
                     : 'border-slate-200 bg-white hover:bg-slate-50 text-slate-500'
@@ -88,7 +87,7 @@ const StaffAuth = () => {
         </div>
 
         {/* Form Body */}
-        <div className="px-8 pb-8 pt-2">
+        <div className="px-5 sm:px-8 pb-6 sm:pb-8 pt-2">
           
           {/* Error Banner */}
           {(submitError || authError) && (

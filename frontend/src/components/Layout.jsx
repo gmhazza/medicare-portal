@@ -96,12 +96,12 @@ const Layout = ({ children }) => {
   }, [pathname, children]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-bg-medicare text-slate-800 font-body selection:bg-teal-700 selection:text-white">
+    <div className="min-h-screen w-full max-w-[100vw] overflow-x-clip flex flex-col bg-bg-medicare text-slate-800 font-body selection:bg-teal-700 selection:text-white">
       {/* Navigation Bar */}
       <Navbar />
 
       {/* Main Page Area */}
-      <main className="flex-grow animate-in fade-in duration-300">
+      <main className="flex-grow w-full max-w-[100vw] overflow-x-clip animate-in fade-in duration-300">
         {children}
       </main>
 

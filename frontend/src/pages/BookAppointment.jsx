@@ -147,41 +147,41 @@ const BookAppointment = () => {
   }
 
   return (
-    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12 space-y-10">
+    <div className="max-w-3xl mx-auto px-3 sm:px-6 py-8 sm:py-12 space-y-8 sm:space-y-10 w-full max-w-[100vw] overflow-x-clip">
       
       {/* Header — Centered */}
-      <div className="booking-header text-center space-y-3 pb-2">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-teal-950 font-heading">
+      <div className="booking-header text-center space-y-2.5 sm:space-y-3 pb-1 sm:pb-2">
+        <h1 className="text-2xl sm:text-4xl md:text-5xl font-black text-teal-950 font-heading">
           Book a Consultation
         </h1>
-        <p className="text-slate-500 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
+        <p className="text-slate-500 text-xs sm:text-base max-w-xl mx-auto leading-relaxed px-2">
           Select a medical service. Our booking algorithm automatically schedules you with an available physician.
         </p>
       </div>
 
       {successAppt ? (
         /* SUCCESS SCREEN */
-        <div className="bg-white rounded-3xl border border-slate-100 p-8 sm:p-12 shadow-xl text-center space-y-8 animate-in zoom-in-95 duration-300">
-          <div className="w-16 h-16 rounded-full bg-teal-50 text-teal-600 flex items-center justify-center mx-auto border border-teal-100">
-            <CheckCircle2 className="w-10 h-10" />
+        <div className="bg-white rounded-3xl border border-slate-100 p-6 sm:p-12 shadow-xl text-center space-y-6 sm:space-y-8 animate-in zoom-in-95 duration-300">
+          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-teal-50 text-teal-600 flex items-center justify-center mx-auto border border-teal-100">
+            <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10" />
           </div>
           
-          <div className="space-y-2">
-            <h2 className="text-2xl font-black text-slate-800 font-heading">Consultation Confirmed!</h2>
-            <p className="text-slate-500 text-sm">Your medical entry is saved in the database tables.</p>
+          <div className="space-y-1.5 sm:space-y-2">
+            <h2 className="text-xl sm:text-2xl font-black text-slate-800 font-heading">Consultation Confirmed!</h2>
+            <p className="text-slate-500 text-xs sm:text-sm">Your medical entry is saved in the database tables.</p>
           </div>
 
           {/* Assigned Doctor details */}
-          <div className="bg-slate-50 rounded-2xl p-6 max-w-md mx-auto border border-slate-100 flex items-center gap-4 text-left">
+          <div className="bg-slate-50 rounded-2xl p-4 sm:p-6 max-w-md mx-auto border border-slate-100 flex flex-col xs:flex-row items-center gap-3.5 sm:gap-4 text-center xs:text-left">
             <img
               src={successAppt.avatar || getDoctorAvatar(successAppt.doctor)}
               alt={successAppt.doctor}
-              className="w-14 h-14 rounded-full border border-teal-800/20 object-cover shrink-0 shadow-xs"
+              className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border border-teal-800/20 object-cover shrink-0 shadow-xs"
             />
             <div>
-              <p className="text-xs text-slate-400 font-semibold uppercase tracking-wider">Assigned Specialist</p>
-              <h4 className="text-base font-extrabold text-slate-800">{successAppt.doctor}</h4>
-              <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs text-slate-500 mt-1">
+              <p className="text-[10px] sm:text-xs text-slate-400 font-semibold uppercase tracking-wider">Assigned Specialist</p>
+              <h4 className="text-sm sm:text-base font-extrabold text-slate-800">{successAppt.doctor}</h4>
+              <div className="flex flex-wrap items-center justify-center xs:justify-start gap-x-2.5 sm:gap-x-3 gap-y-1 text-xs text-slate-500 mt-1">
                 <span className="font-semibold text-teal-800 capitalize">{successAppt.service}</span>
                 <span>•</span>
                 <span>Date: {new Date(successAppt.date).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}</span>
@@ -189,16 +189,16 @@ const BookAppointment = () => {
             </div>
           </div>
 
-          <div className="flex justify-center gap-4 pt-2">
+          <div className="flex flex-wrap justify-center gap-3 sm:gap-4 pt-2">
             <Link
               to="/dashboard/patient"
-              className="px-6 py-3 bg-teal-800 hover:bg-teal-900 text-white font-bold rounded-xl shadow-md text-sm transition-colors cursor-pointer"
+              className="w-full xs:w-auto px-6 py-3 bg-teal-800 hover:bg-teal-900 text-white font-bold rounded-xl shadow-md text-xs sm:text-sm transition-colors cursor-pointer text-center"
             >
               Go To Dashboard
             </Link>
             <button
               onClick={() => setSuccessAppt(null)}
-              className="px-6 py-3 bg-white border border-teal-850/20 text-teal-850 hover:bg-teal-50 font-bold rounded-xl text-sm transition-colors cursor-pointer"
+              className="w-full xs:w-auto px-6 py-3 bg-white border border-teal-850/20 text-teal-850 hover:bg-teal-50 font-bold rounded-xl text-xs sm:text-sm transition-colors cursor-pointer"
             >
               Book Another
             </button>
@@ -207,7 +207,7 @@ const BookAppointment = () => {
       ) : (
         /* BOOKING FORM — Centered & Full Width */
         <div className="w-full">
-          <form onSubmit={handleSubmit(onSubmit)} className="booking-form w-full bg-white rounded-3xl border border-slate-100 p-6 sm:p-10 shadow-xl space-y-6 text-left">
+          <form onSubmit={handleSubmit(onSubmit)} className="booking-form w-full bg-white rounded-3xl border border-slate-100 p-5 sm:p-10 shadow-xl space-y-5 sm:space-y-6 text-left">
             
             {/* Error message */}
             {submitError && (

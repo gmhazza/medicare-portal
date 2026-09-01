@@ -102,22 +102,22 @@ const Auth = () => {
   };
 
   return (
-    <div ref={containerRef} className="min-h-[calc(100vh-80px)] flex justify-center items-center py-12 px-4 sm:px-6 lg:px-8 bg-[#fafffd]">
+    <div ref={containerRef} className="min-h-[calc(100vh-80px)] flex justify-center items-center py-8 sm:py-12 px-3 sm:px-6 lg:px-8 bg-[#fafffd] w-full max-w-[100vw] overflow-x-clip">
       <div className="auth-card max-w-md w-full bg-white rounded-3xl border border-slate-100 shadow-xl overflow-hidden text-left relative">
         <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-teal-850 to-teal-600"></div>
 
         {/* Brand & Toggle Header */}
-        <div className="p-8 pb-4">
+        <div className="p-6 sm:p-8 pb-3 sm:pb-4">
           <div className="text-center space-y-2">
-            <h2 className="auth-header-el text-3xl font-black text-teal-950 font-heading">MediCare Patient Portal</h2>
+            <h2 className="auth-header-el text-2xl sm:text-3xl font-black text-teal-950 font-heading">MediCare Patient Portal</h2>
             <p className="auth-header-el text-xs text-slate-400">Access your medical files and book appointments</p>
           </div>
 
           {/* Login/Register Tabs */}
-          <div className="auth-header-el mt-8 grid grid-cols-2 gap-2 bg-slate-100 p-1.5 rounded-2xl">
+          <div className="auth-header-el mt-6 sm:mt-8 grid grid-cols-2 gap-2 bg-slate-100 p-1.5 rounded-2xl">
             <button
               onClick={() => { setActiveTab('login'); setSubmitError(null); }}
-              className={`py-3 text-sm font-bold rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+              className={`py-2.5 sm:py-3 text-xs sm:text-sm font-bold rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
                 activeTab === 'login' ? 'bg-white text-teal-800 shadow-sm' : 'text-slate-500 hover:text-slate-800'
               }`}
             >
@@ -126,7 +126,7 @@ const Auth = () => {
             </button>
             <button
               onClick={() => { setActiveTab('register'); setSubmitError(null); }}
-              className={`py-3 text-sm font-bold rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+              className={`py-2.5 sm:py-3 text-xs sm:text-sm font-bold rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
                 activeTab === 'register' ? 'bg-white text-teal-800 shadow-sm' : 'text-slate-500 hover:text-slate-800'
               }`}
             >
@@ -137,7 +137,7 @@ const Auth = () => {
         </div>
 
         {/* Form Body */}
-        <div className="px-8 pb-8 pt-2">
+        <div className="px-5 sm:px-8 pb-6 sm:pb-8 pt-2">
           
           {/* Error Banner */}
           {(submitError || authError) && (

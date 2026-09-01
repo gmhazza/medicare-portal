@@ -110,73 +110,73 @@ const Contact = () => {
   }, { scope: containerRef });
 
   return (
-    <div ref={containerRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+    <div ref={containerRef} className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-10 sm:space-y-16 w-full max-w-[100vw] overflow-x-clip">
       
       {/* Page Header */}
-      <div className="contact-header text-center max-w-2xl mx-auto space-y-4">
-        <h1 className="text-4xl font-black text-teal-950 font-heading">Contact Our Medical Office</h1>
-        <p className="text-slate-500 text-sm sm:text-base">
+      <div className="contact-header text-center max-w-2xl mx-auto space-y-3 sm:space-y-4">
+        <h1 className="text-3xl sm:text-4xl font-black text-teal-950 font-heading">Contact Our Medical Office</h1>
+        <p className="text-slate-500 text-xs sm:text-base">
           Have an inquiry, feedback, or need administrative assistance? Reach out to our front desk.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12">
         {/* Left Column: Coordinates and Map */}
-        <div className="lg:col-span-5 space-y-8 text-left">
+        <div className="lg:col-span-5 space-y-6 sm:space-y-8 text-left">
           
           {/* Quick info cards */}
-          <div className="contact-info-card bg-black text-white rounded-3xl border border-slate-800 p-8 shadow-2xl space-y-6 relative overflow-hidden z-0">
+          <div className="contact-info-card bg-black text-white rounded-3xl border border-slate-800 p-6 sm:p-8 shadow-2xl space-y-5 sm:space-y-6 relative overflow-hidden z-0">
             <div className="absolute top-0 right-0 w-36 h-36 bg-teal-800/10 rounded-full blur-2xl -z-10"></div>
             <div className="absolute -bottom-10 -left-10 w-36 h-36 bg-teal-950/20 rounded-full blur-2xl -z-10"></div>
-            <h3 className="text-xl font-bold text-teal-100 font-heading border-b border-slate-800 pb-3">Get in Touch</h3>
+            <h3 className="text-lg sm:text-xl font-bold text-teal-100 font-heading border-b border-slate-800 pb-3">Get in Touch</h3>
             
-            <div className="info-item flex items-start gap-4">
-              <div className="p-3 bg-teal-500/10 text-teal-400 rounded-2xl border border-teal-500/20 shrink-0">
-                <Phone className="w-5 h-5" />
+            <div className="info-item flex items-start gap-3.5 sm:gap-4">
+              <div className="p-2.5 sm:p-3 bg-teal-500/10 text-teal-400 rounded-2xl border border-teal-500/20 shrink-0">
+                <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
               <div>
-                <h4 className="text-sm font-bold text-white font-heading">Call Center</h4>
-                <p className="text-sm text-slate-400 mt-1">+92 (51) 111-844-844</p>
-                <p className="text-xs text-slate-500">Campus Exchange: +92 (51) 844-6666</p>
+                <h4 className="text-xs sm:text-sm font-bold text-white font-heading">Call Center</h4>
+                <p className="text-xs sm:text-sm text-slate-400 mt-0.5 sm:mt-1">+92 (51) 111-844-844</p>
+                <p className="text-[11px] sm:text-xs text-slate-500">Campus Exchange: +92 (51) 844-6666</p>
               </div>
             </div>
 
-            <div className="info-item flex items-start gap-4">
-              <div className="p-3 bg-teal-500/10 text-teal-400 rounded-2xl border border-teal-500/20 shrink-0">
-                <Mail className="w-5 h-5" />
+            <div className="info-item flex items-start gap-3.5 sm:gap-4">
+              <div className="p-2.5 sm:p-3 bg-teal-500/10 text-teal-400 rounded-2xl border border-teal-500/20 shrink-0">
+                <Mail className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
               <div>
-                <h4 className="text-sm font-bold text-white font-heading">Email Address</h4>
-                <p className="text-sm text-slate-400 mt-1">support@medicare-portal.com</p>
-                <p className="text-xs text-slate-500">Response time: within 24 hours</p>
+                <h4 className="text-xs sm:text-sm font-bold text-white font-heading">Email Address</h4>
+                <p className="text-xs sm:text-sm text-slate-400 mt-0.5 sm:mt-1">support@medicare-portal.com</p>
+                <p className="text-[11px] sm:text-xs text-slate-500">Response time: within 24 hours</p>
               </div>
             </div>
 
-            <div className="info-item flex items-start gap-4">
-              <div className="p-3 bg-teal-500/10 text-teal-400 rounded-2xl border border-teal-500/20 shrink-0">
-                <MapPin className="w-5 h-5" />
+            <div className="info-item flex items-start gap-3.5 sm:gap-4">
+              <div className="p-2.5 sm:p-3 bg-teal-500/10 text-teal-400 rounded-2xl border border-teal-500/20 shrink-0">
+                <MapPin className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
               <div>
-                <h4 className="text-sm font-bold text-white font-heading">Main Campus</h4>
-                <p className="text-sm text-slate-400 mt-1">Ibadat International University, Islamabad, Pakistan</p>
-                <p className="text-xs text-slate-500">Japan Road, Sihala, Islamabad</p>
+                <h4 className="text-xs sm:text-sm font-bold text-white font-heading">Main Campus</h4>
+                <p className="text-xs sm:text-sm text-slate-400 mt-0.5 sm:mt-1">Ibadat International University, Islamabad, Pakistan</p>
+                <p className="text-[11px] sm:text-xs text-slate-500">Japan Road, Sihala, Islamabad</p>
               </div>
             </div>
           </div>
 
           {/* Interactive OSM Map */}
-          <div className="contact-map space-y-3">
-            <h4 className="text-sm font-bold text-slate-700 uppercase tracking-wider pl-1">Hospital Location</h4>
+          <div className="contact-map space-y-2.5 sm:space-y-3">
+            <h4 className="text-xs sm:text-sm font-bold text-slate-700 uppercase tracking-wider pl-1">Hospital Location</h4>
             <MapEmbed />
           </div>
 
         </div>
 
         {/* Right Column: Contact Inquiry Form */}
-        <div className="contact-form-card lg:col-span-7 bg-white rounded-3xl border border-slate-100 p-8 sm:p-10 shadow-md text-left relative overflow-hidden">
+        <div className="contact-form-card lg:col-span-7 bg-white rounded-3xl border border-slate-100 p-5 sm:p-10 shadow-md text-left relative overflow-hidden">
           <div className="absolute top-0 right-0 w-32 h-32 bg-teal-50/50 rounded-bl-full -z-10"></div>
           
-          <h3 className="form-el text-2xl font-bold text-teal-950 font-heading">Submit an Inquiry</h3>
+          <h3 className="form-el text-xl sm:text-2xl font-bold text-teal-950 font-heading">Submit an Inquiry</h3>
           <p className="form-el text-slate-500 text-xs mt-1 leading-relaxed">
             Fill out the form below and our medical coordinators will route your request to the correct department.
           </p>

@@ -1,8 +1,6 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Heart, ShieldCheck, Award, Users, ArrowRight, Activity, Smile, PhoneCall, Sparkles, MessageSquare, CalendarCheck, Bot } from 'lucide-react';
-import heroBg from '../assets/hero bg.jpeg';
-import doctorImg from '../assets/doctor image.png';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
@@ -125,31 +123,31 @@ const Home = () => {
   });
 
   return (
-    <div className="pb-20 -mt-20">
+    <div className="pb-16 sm:pb-20 w-full max-w-[100vw] overflow-x-clip">
       {/* 1. Hero Section — HOPE [Video] HEAL WITH CARE */}
-      <section className="relative overflow-hidden h-screen min-h-screen flex flex-col items-center justify-center bg-[#FAFFFD] pt-16 pb-6 px-4 sm:px-6 lg:px-8 text-center select-none">
+      <section className="relative overflow-hidden min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center bg-[#FAFFFD] pt-6 sm:pt-12 pb-10 sm:pb-12 px-3 sm:px-6 lg:px-8 text-center select-none">
         {/* Subtle radial background tint */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#f6fde6]/70 via-transparent to-transparent pointer-events-none" />
 
-        <div className="relative z-10 max-w-7xl mx-auto w-full flex flex-col items-center justify-center space-y-4 sm:space-y-6 my-auto">
+        <div className="relative z-10 max-w-7xl mx-auto w-full flex flex-col items-center justify-center space-y-3 sm:space-y-6 my-auto">
 
-          {/* Top Logo — MediCare logo slightly bigger with more distance to headline */}
-          <div className="-mt-10 sm:-mt-14 mb-2 sm:mb-4 ">
+          {/* Top Logo — MediCare logo centered with natural breathing room */}
+          <div className="mb-1 sm:mb-4">
             <img
               src="/imgvid/medicarelogo.png"
               alt="MediCare Logo"
-              className="h-20 sm:h-24 md:h-28 lg:h-[105px] w-auto object-contain"
+              className="h-16 sm:h-24 md:h-28 lg:h-[105px] w-auto object-contain"
             />
           </div>
 
           {/* Headline Row 1: HOPE + Borderless Compact Video Frame + HEAL (Strictly 1 Line) */}
-          <div className="flex flex-nowrap mt-10  items-center justify-center gap-2 sm:gap-4 md:gap-6 lg:gap-8 whitespace-nowrap tracking-tight">
-            <span className="text-[9vw] sm:text-[8vw] md:text-[7.5vw] lg:text-[120px] xl:text-[138px] 2xl:text-[150px] font-extrabold text-black font-body leading-none">
+          <div className="flex flex-nowrap mt-3 sm:mt-6 items-center justify-center gap-1.5 xs:gap-2.5 sm:gap-4 md:gap-6 lg:gap-8 whitespace-nowrap tracking-tight">
+            <span className="text-[8.5vw] sm:text-[8vw] md:text-[7.5vw] lg:text-[120px] xl:text-[138px] 2xl:text-[150px] font-extrabold text-black font-body leading-none">
               HOPE
             </span>
 
             {/* Stadium/Pill Rounded Video Container — Borderless, No Shadow, Height slightly more than text, Width decreased */}
-            <div className="relative w-[15vw] sm:w-[13vw] md:w-[12vw] lg:w-50 xl:w-62 2xl:w-60 h-[11vw] sm:h-[10vw] md:h-[9vw] lg:h-[135px] xl:h-[155px] 2xl:h-[170px] rounded-full overflow-hidden shrink-0 transform hover:scale-[1.02] transition-transform duration-300">
+            <div className="relative w-[14vw] sm:w-[13vw] md:w-[12vw] lg:w-50 xl:w-62 2xl:w-60 h-[10.5vw] sm:h-[10vw] md:h-[9vw] lg:h-[135px] xl:h-[155px] 2xl:h-[170px] rounded-full overflow-hidden shrink-0 transform hover:scale-[1.02] transition-transform duration-300">
               <video
                 src="/imgvid/medicarevid1.mp4"
                 autoPlay
@@ -160,34 +158,34 @@ const Home = () => {
               />
             </div>
 
-            <span className="text-[9vw] sm:text-[8vw] md:text-[7.5vw] lg:text-[120px] xl:text-[138px] 2xl:text-[150px] font-extrabold text-black font-body leading-none">
+            <span className="text-[8.5vw] sm:text-[8vw] md:text-[7.5vw] lg:text-[120px] xl:text-[138px] 2xl:text-[150px] font-extrabold text-black font-body leading-none">
               HEAL
             </span>
           </div>
 
           {/* Headline Row 2: WITH CARE (Centered, EXACT same font size and Montserrat styling) */}
           <div className="text-center w-full">
-            <span className="text-[9vw] sm:text-[8vw] md:text-[7.5vw] lg:text-[120px] xl:text-[138px] 2xl:text-[150px] font-extrabold text-black font-body leading-none tracking-tight block text-center">
+            <span className="text-[8.5vw] sm:text-[8vw] md:text-[7.5vw] lg:text-[120px] xl:text-[138px] 2xl:text-[150px] font-extrabold text-black font-body leading-none tracking-tight block text-center">
               WITH CARE
             </span>
           </div>
 
           {/* Fully Rounded CTAs with working functionality */}
-          <div className="flex flex-wrap items-center justify-center gap-4 pt-3">
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 pt-2 sm:pt-3">
             <Link
               to="/book"
-              className="px-7 py-3.5 sm:py-4 bg-teal-700 hover:bg-teal-800 text-white font-bold rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all flex items-center gap-2.5 group cursor-pointer font-heading text-sm sm:text-base"
+              className="px-5 sm:px-7 py-3 sm:py-4 bg-teal-700 hover:bg-teal-800 text-white font-bold rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all flex items-center gap-2 group cursor-pointer font-heading text-xs sm:text-base"
             >
-              <CalendarCheck className="w-5 h-5" />
+              <CalendarCheck className="w-4 h-4 sm:w-5 sm:h-5" />
               Book Appointment
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:translate-x-1" />
             </Link>
 
             <button
               onClick={() => window.dispatchEvent(new CustomEvent('open-chatbot'))}
-              className="px-7 py-3.5 sm:py-4 bg-white text-teal-900 border-2 border-teal-200 hover:border-teal-400 hover:bg-teal-50/50 font-bold rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all flex items-center gap-2.5 cursor-pointer font-heading text-sm sm:text-base"
+              className="px-5 sm:px-7 py-3 sm:py-4 bg-white text-teal-900 border-2 border-teal-200 hover:border-teal-400 hover:bg-teal-50/50 font-bold rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all flex items-center gap-2 cursor-pointer font-heading text-xs sm:text-base"
             >
-              <Bot className="w-5 h-5" />
+              <Bot className="w-4 h-4 sm:w-5 sm:h-5" />
               Consult AI
             </button>
           </div>
@@ -195,26 +193,26 @@ const Home = () => {
         </div>
       </section>
 
-      <div className="space-y-24 mt-8">
+      <div className="space-y-16 sm:space-y-24 mt-6 sm:mt-8">
 
         {/* 2. Statistics Section — Full width (no rounded corners), cream (#FAFFFD) text */}
-        <section className="w-full bg-black text-[#FAFFFD] relative overflow-hidden py-14 sm:py-16 border-y border-slate-900/80 shadow-2xl">
+        <section className="w-full bg-black text-[#FAFFFD] relative overflow-hidden py-12 sm:py-16 border-y border-slate-900/80 shadow-2xl">
           <div className="absolute top-0 right-0 w-96 h-96 bg-teal-800/15 rounded-full blur-3xl -z-10"></div>
           <div className="absolute -bottom-10 -left-10 w-96 h-96 bg-teal-950/25 rounded-full blur-3xl -z-10"></div>
           
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
               {statistics.map((stat, i) => {
                 const Icon = stat.icon;
                 return (
-                  <div key={i} className="text-center space-y-2.5 border-r last:border-0 border-teal-900/40 last:border-r-0">
-                    <div className="inline-flex p-3 rounded-2xl bg-teal-500/10 border border-teal-500/20 text-[#00d2b4] mb-1">
-                      <Icon className="w-6 h-6" />
+                  <div key={i} className="text-center space-y-2 sm:space-y-2.5 border-r [&:nth-child(2n)]:border-r-0 lg:[&:nth-child(2n)]:border-r lg:last:border-r-0 border-teal-900/40">
+                    <div className="inline-flex p-2.5 sm:p-3 rounded-2xl bg-teal-500/10 border border-teal-500/20 text-[#00d2b4] mb-1">
+                      <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
                     </div>
-                    <h3 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#FAFFFD] font-heading tracking-tight drop-shadow-sm">
+                    <h3 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-[#FAFFFD] font-heading tracking-tight drop-shadow-sm">
                       {stat.value}
                     </h3>
-                    <p className="text-xs sm:text-sm text-[#FAFFFD]/75 uppercase tracking-widest font-semibold font-body">
+                    <p className="text-[11px] sm:text-sm text-[#FAFFFD]/75 uppercase tracking-widest font-semibold font-body">
                       {stat.label}
                     </p>
                   </div>
@@ -227,12 +225,12 @@ const Home = () => {
         {/* 3. Department Highlights — Horizontal Scroll with ScrollTrigger */}
         <section ref={servicesSectionRef} className="services-scroll-section relative overflow-hidden">
           {/* Section Header (pinned overlay) */}
-          <div className="absolute top-8 left-0 right-0 z-10 px-4 sm:px-6 lg:px-8">
-            <div className="section-header-anim max-w-7xl mx-auto text-center flex flex-col items-center space-y-3">
-              <h2 className="text-3xl sm:text-4xl font-black text-teal-950 font-heading">
+          <div className="absolute top-4 sm:top-8 left-0 right-0 z-10 px-4 sm:px-6 lg:px-8">
+            <div className="section-header-anim max-w-7xl mx-auto text-center flex flex-col items-center space-y-2 sm:space-y-3">
+              <h2 className="text-2xl sm:text-4xl font-black text-teal-950 font-heading">
                 Our Dedicated Clinical Services
               </h2>
-              <p className="text-slate-500 text-sm sm:text-base leading-relaxed max-w-xl">
+              <p className="text-slate-500 text-xs sm:text-base leading-relaxed max-w-xl">
                 MediCare houses state-of-the-art departments engineered to cater to all aspects of clinical science, offering virtual scheduling and AI support.
               </p>
             </div>
@@ -241,7 +239,7 @@ const Home = () => {
           {/* Horizontal Scroll Track */}
           <div
             ref={servicesTrackRef}
-            className="services-scroll-track flex items-center gap-8 pt-36 pb-12 pl-8 pr-[30vw]"
+            className="services-scroll-track flex items-center gap-6 sm:gap-8 pt-28 sm:pt-36 pb-8 sm:pb-12 pl-4 sm:pl-8 pr-[20vw] sm:pr-[30vw]"
             style={{ width: 'max-content' }}
           >
             {departments.map((dept, index) => {
@@ -250,10 +248,10 @@ const Home = () => {
               return (
                 <div
                   key={dept.id}
-                  className={`services-card bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-md transition-all duration-500 flex flex-col group hover:shadow-2xl ${isOffset ? 'mt-16' : 'mt-0'}`}
-                  style={{ width: '340px', minWidth: '340px', flexShrink: 0 }}
+                  className={`services-card bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-md transition-all duration-500 flex flex-col group hover:shadow-2xl ${isOffset ? 'sm:mt-14 mt-4' : 'mt-0'}`}
+                  style={{ width: 'min(340px, 82vw)', minWidth: 'min(340px, 82vw)', flexShrink: 0 }}
                 >
-                  <div className="h-48 overflow-hidden relative">
+                  <div className="h-40 sm:h-48 overflow-hidden relative">
                     <img
                       src={dept.image}
                       alt={dept.name}
@@ -284,28 +282,28 @@ const Home = () => {
         </section>
 
         {/* 4. Telehealth Promo / AI Banner */}
-        <section ref={bannerRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative rounded-3xl bg-black text-white overflow-hidden p-8 sm:p-12 lg:p-16 text-left border border-slate-800 shadow-xl">
+        <section ref={bannerRef} className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="relative rounded-3xl bg-black text-white overflow-hidden p-6 sm:p-12 lg:p-16 text-left border border-slate-800 shadow-xl">
             <div className="absolute top-0 right-0 w-96 h-96 bg-teal-800/10 rounded-full blur-3xl -z-10"></div>
             <div className="absolute -bottom-10 -left-10 w-96 h-96 bg-teal-950/20 rounded-full blur-3xl -z-10"></div>
             
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
-              <div className="lg:col-span-8 space-y-6 text-left">
-                <span className="inline-flex items-center gap-1.5 bg-teal-500/20 text-teal-300 border border-teal-500/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+              <div className="lg:col-span-8 space-y-5 sm:space-y-6 text-left">
+                <span className="inline-flex items-center gap-1.5 bg-teal-500/20 text-teal-300 border border-teal-500/30 text-[11px] sm:text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                   <Bot className="w-3.5 h-3.5" />
                   AI Clinical Consultation
                 </span>
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black font-heading leading-tight tracking-tight text-white">
+                <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black font-heading leading-tight tracking-tight text-white">
                   Get Instant Clinical Answers from the <br className="hidden sm:inline" />
                   MediCare AI Chatbot Assistant
                 </h2>
-                <p className="text-teal-100 text-sm sm:text-base leading-relaxed max-w-xl font-body">
+                <p className="text-teal-100 text-xs sm:text-base leading-relaxed max-w-xl font-body">
                   Need immediate suggestions on minor symptoms or want to check doctor schedules? Chat with our virtual health desk integrated directly with your profile messages.
                 </p>
-                <div className="pt-2">
+                <div className="pt-1 sm:pt-2">
                   <button
                     onClick={() => window.dispatchEvent(new CustomEvent('open-chatbot'))}
-                    className="inline-flex items-center gap-2 px-8 py-3.5 bg-[#00d2b4] hover:bg-[#00baa0] text-[#080d11] font-extrabold rounded-xl shadow-[0_0_20px_rgba(0,210,180,0.3)] hover:shadow-[0_0_25px_rgba(0,210,180,0.5)] transition-all cursor-pointer font-heading text-sm sm:text-base"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 bg-[#00d2b4] hover:bg-[#00baa0] text-[#080d11] font-extrabold rounded-xl shadow-[0_0_20px_rgba(0,210,180,0.3)] hover:shadow-[0_0_25px_rgba(0,210,180,0.5)] transition-all cursor-pointer font-heading text-xs sm:text-base"
                   >
                     Start Consultation Chat
                     <MessageSquare className="w-4 h-4" />

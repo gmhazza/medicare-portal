@@ -91,143 +91,109 @@ const Navbar = () => {
 
   return (
     <>
-      {/* SVG ClipPath Definition for the Curved Arch Navbar */}
-      <svg className="absolute w-0 h-0 pointer-events-none" aria-hidden="true">
-        <defs>
-          <clipPath id="navbarArchClip" clipPathUnits="objectBoundingBox">
-            <path d="M 0,0 L 1,0 L 1,1 Q 0.5,0.45 0,1 Z" />
-          </clipPath>
-        </defs>
-      </svg>
-
-      {/* Sticky Curved Navbar with Arch Cutout matching reference */}
-      <header className="sticky top-0 z-40 w-full select-none">
-        <div className="relative w-full h-[90px] sm:h-[104px] md:h-[116px] transition-all duration-300">
+      {/* Sleek, Slim Rectangle Navbar: Solid Black normally -> Frosted Glassmorphism on Scroll */}
+      <header 
+        className={`sticky top-0 z-40 w-full select-none transition-all duration-500 ${
+          scrolled 
+            ? 'bg-black/45 backdrop-blur-2xl backdrop-saturate-150 shadow-[0_8px_32px_0_rgba(0,0,0,0.25)]' 
+            : 'bg-black'
+        }`}
+      >
+        <div className="relative w-full h-16 sm:h-18 px-3 sm:px-8 md:px-12 flex items-center justify-between">
           
-          {/* Curved Arch Glassmorphism Background (Clipped exactly to Arch shape) */}
-          <div 
-            className={`absolute inset-0 transition-all duration-500 pointer-events-none drop-shadow-md ${
-              scrolled 
-                ? 'backdrop-blur-md bg-black/35 backdrop-saturate-150' 
-                : 'bg-black'
-            }`}
-            style={{
-              clipPath: 'url(#navbarArchClip)',
-              WebkitClipPath: 'url(#navbarArchClip)',
-            }}
-          />
+          {/* Left: Minimalist 2-line Teal Burger Menu Button */}
+          <div className="flex items-center justify-start shrink-0 z-10">
+            <button
+              type="button"
+              onClick={() => setSidebarOpen(true)}
+              className="group flex flex-col justify-center items-start gap-[5.5px] sm:gap-[7px] p-2 sm:p-2.5 rounded-xl hover:bg-white/10 transition-all duration-300 cursor-pointer focus:outline-none"
+              aria-label="Open Navigation Menu"
+            >
+              <span className="w-7 sm:w-9 h-[4px] rounded-full bg-[#00d2b4] group-hover:w-10 transition-all duration-300 shadow-[0_0_8px_rgba(0,210,180,0.6)]"></span>
+              <span className="w-5 sm:w-7 h-[4px] rounded-full bg-[#00d2b4] group-hover:w-10 transition-all duration-300 shadow-[0_0_8px_rgba(0,210,180,0.6)]"></span>
+            </button>
+          </div>
 
-          {/* Nav Items Bar: Left, Center, Right spanning full screen width */}
-          <div className="relative w-full h-full px-4 sm:px-8 md:px-12 flex items-center justify-between z-10">
-            
-            {/* Left: Minimalist 2-line Teal Burger Menu Button */}
-            <div className="flex items-center justify-start shrink-0">
-              <button
-                type="button"
-                onClick={() => setSidebarOpen(true)}
-                className="group flex flex-col justify-center items-start gap-[5.5px] sm:gap-[7px] p-2 sm:p-2.5 rounded-xl hover:bg-white/10 transition-all duration-300 cursor-pointer focus:outline-none"
-                aria-label="Open Navigation Menu"
-              >
-                <span className="w-8 sm:w-9 h-[3px] bg-[#00d2b4] group-hover:w-10 transition-all duration-300 rounded-full shadow-[0_0_8px_rgba(0,210,180,0.6)]"></span>
-                <span className="w-6 sm:w-7 h-[3px] bg-[#00d2b4] group-hover:w-10 transition-all duration-300 rounded-full shadow-[0_0_8px_rgba(0,210,180,0.6)]"></span>
-              </button>
-            </div>
+          {/* Center: Absolute 100% Dead-Center MEDICARE Typography */}
+          <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-auto z-10">
+            <Link 
+              to="/home" 
+              className="group flex items-center justify-center select-none transition-transform duration-300 hover:scale-105"
+            >
+              <span className="font-['Nunito'] font-black text-lg xs:text-xl sm:text-2xl md:text-3xl text-white tracking-wide group-hover:text-[#00d2b4] transition-colors duration-300 drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
+                MEDICARE
+              </span>
+            </Link>
+          </div>
 
-            {/* Center: Curved Upward Bold Nunito MEDICARE Typography (Enlarged) */}
-            <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-[54%] flex items-center justify-center pointer-events-auto">
-              <Link 
-                to="/home" 
-                className="group flex items-center justify-center select-none transition-transform duration-300 hover:scale-105"
-              >
-                <svg 
-                  viewBox="0 0 420 58" 
-                  className="w-56 sm:w-72 md:w-84 lg:w-96 h-10 sm:h-12 md:h-14 overflow-visible"
+          {/* Right: User Profile or Cyan Teal Sign In Button */}
+          <div className="flex items-center justify-end shrink-0 z-10">
+            {user ? (
+              <div className="relative">
+                <button
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                  onBlur={() => setTimeout(() => setDropdownOpen(false), 200)}
+                  className="flex items-center gap-1.5 sm:gap-2.5 px-1.5 sm:px-3 py-1.5 rounded-full hover:bg-white/10 transition-all cursor-pointer focus:outline-none"
                 >
-                  <defs>
-                    {/* Upward crest arch path matching the upward bottom curve */}
-                    <path id="medicareUpwardArc" d="M 10 42 Q 210 20 410 42" />
-                  </defs>
-                  <text 
-                    className="font-['Nunito'] font-black fill-white tracking-[0.32em] text-[26px] sm:text-[31px] md:text-[34px] drop-shadow-lg group-hover:fill-teal-300 transition-colors duration-300"
-                    style={{ textAnchor: 'middle', fontWeight: 900 }}
-                  >
-                    <textPath href="#medicareUpwardArc" startOffset="50%">
-                      MEDICARE
-                    </textPath>
-                  </text>
-                </svg>
-              </Link>
-            </div>
+                  <img
+                    src={user.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=00d2b4&color=000000`}
+                    alt={user.name}
+                    className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 rounded-full border-2 border-[#00d2b4] object-cover shadow-[0_0_10px_rgba(0,210,180,0.3)]"
+                  />
+                  <div className="text-left hidden md:block">
+                    <p className="text-xs font-bold leading-tight text-white max-w-[100px] truncate">{user.name}</p>
+                    <span className="text-[10px] text-[#00d2b4] capitalize font-medium">{role}</span>
+                  </div>
+                  <ChevronDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-400" />
+                </button>
 
-            {/* Right: User Profile or Cyan Teal Sign In Button (Redirects to Welcome Page if guest) */}
-            <div className="flex items-center justify-end shrink-0">
-              {user ? (
-                <div className="relative">
-                  <button
-                    onClick={() => setDropdownOpen(!dropdownOpen)}
-                    onBlur={() => setTimeout(() => setDropdownOpen(false), 200)}
-                    className="flex items-center gap-2 sm:gap-2.5 px-2 sm:px-3 py-1.5 rounded-full hover:bg-white/10 transition-all cursor-pointer focus:outline-none"
-                  >
-                    <img
-                      src={user.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=00d2b4&color=000000`}
-                      alt={user.name}
-                      className="w-8 h-8 md:w-9 md:h-9 rounded-full border-2 border-[#00d2b4] object-cover shadow-[0_0_10px_rgba(0,210,180,0.3)]"
-                    />
-                    <div className="text-left hidden md:block">
-                      <p className="text-xs font-bold leading-tight text-white max-w-[100px] truncate">{user.name}</p>
-                      <span className="text-[10px] text-[#00d2b4] capitalize font-medium">{role}</span>
+                {/* Dropdown Menu */}
+                {dropdownOpen && (
+                  <div className="absolute right-0 mt-3 w-56 bg-[#0c141a] rounded-2xl shadow-2xl border border-white/10 py-2.5 animate-in fade-in slide-in-from-top-2 duration-200 z-50">
+                    <div className="px-4 py-2.5 border-b border-white/10">
+                      <p className="text-[11px] text-slate-400">Signed in as</p>
+                      <p className="text-sm font-bold text-white truncate">{user.name}</p>
+                      <span className="inline-block bg-teal-950/80 border border-teal-500/30 text-[10px] text-[#00d2b4] font-semibold px-2 py-0.5 rounded-full mt-1.5 capitalize">
+                        {role}
+                      </span>
                     </div>
-                    <ChevronDown className="w-4 h-4 text-slate-400" />
-                  </button>
 
-                  {/* Dropdown Menu */}
-                  {dropdownOpen && (
-                    <div className="absolute right-0 mt-3 w-56 bg-[#0c141a] rounded-2xl shadow-2xl border border-white/10 py-2.5 animate-in fade-in slide-in-from-top-2 duration-200 z-50">
-                      <div className="px-4 py-2.5 border-b border-white/10">
-                        <p className="text-[11px] text-slate-400">Signed in as</p>
-                        <p className="text-sm font-bold text-white truncate">{user.name}</p>
-                        <span className="inline-block bg-teal-950/80 border border-teal-500/30 text-[10px] text-[#00d2b4] font-semibold px-2 py-0.5 rounded-full mt-1.5 capitalize">
-                          {role}
-                        </span>
-                      </div>
+                    <Link
+                      to={getDashboardPath()}
+                      className="flex items-center gap-3 px-4 py-2.5 text-sm text-slate-300 hover:bg-white/5 hover:text-[#00d2b4] transition-colors"
+                    >
+                      <LayoutDashboard className="w-4 h-4 text-[#00d2b4]" />
+                      My Dashboard
+                    </Link>
 
+                    {role === 'user' && (
                       <Link
-                        to={getDashboardPath()}
+                        to="/feedback"
                         className="flex items-center gap-3 px-4 py-2.5 text-sm text-slate-300 hover:bg-white/5 hover:text-[#00d2b4] transition-colors"
                       >
-                        <LayoutDashboard className="w-4 h-4 text-[#00d2b4]" />
-                        My Dashboard
+                        <MessageSquare className="w-4 h-4 text-[#00d2b4]" />
+                        Submit Feedback
                       </Link>
+                    )}
 
-                      {role === 'user' && (
-                        <Link
-                          to="/feedback"
-                          className="flex items-center gap-3 px-4 py-2.5 text-sm text-slate-300 hover:bg-white/5 hover:text-[#00d2b4] transition-colors"
-                        >
-                          <MessageSquare className="w-4 h-4 text-[#00d2b4]" />
-                          Submit Feedback
-                        </Link>
-                      )}
-
-                      <button
-                        onClick={handleLogout}
-                        className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-rose-400 hover:bg-rose-500/10 transition-colors text-left cursor-pointer border-t border-white/5 mt-1"
-                      >
-                        <LogOut className="w-4 h-4" />
-                        Sign Out
-                      </button>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <Link
-                  to="/"
-                  className="flex items-center justify-center px-5 sm:px-7 py-1.5 sm:py-2 bg-[#00d2b4] hover:bg-[#00baa0] text-[#080d11] font-['Nunito'] font-extrabold text-xs sm:text-sm rounded-full transition-all duration-300 shadow-[0_0_15px_rgba(0,210,180,0.4)] hover:shadow-[0_0_20px_rgba(0,210,180,0.6)] hover:scale-105 active:scale-95"
-                >
-                  Sign In
-                </Link>
-              )}
-            </div>
+                    <button
+                      onClick={handleLogout}
+                      className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-rose-400 hover:bg-rose-500/10 transition-colors text-left cursor-pointer border-t border-white/5 mt-1"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      Sign Out
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link
+                to="/"
+                className="flex items-center justify-center px-4 sm:px-7 py-1.5 sm:py-2 bg-[#00d2b4] hover:bg-[#00baa0] text-[#080d11] font-['Nunito'] font-extrabold text-xs sm:text-sm rounded-full transition-all duration-300 shadow-[0_0_15px_rgba(0,210,180,0.4)] hover:shadow-[0_0_20px_rgba(0,210,180,0.6)] hover:scale-105 active:scale-95"
+              >
+                Sign In
+              </Link>
+            )}
           </div>
         </div>
       </header>
@@ -248,19 +214,19 @@ const Navbar = () => {
 
         {/* Sidebar Container */}
         <div 
-          className={`fixed top-0 left-0 bottom-0 w-[310px] sm:w-[360px] bg-[#090f14] text-white flex flex-col justify-between shadow-2xl border-r border-white/10 transform transition-transform duration-400 cubic-bezier(0.16, 1, 0.3, 1) z-50 ${
+          className={`fixed top-0 left-0 bottom-0 w-[280px] xs:w-[310px] sm:w-[360px] max-w-[85vw] bg-[#090f14] text-white flex flex-col justify-between shadow-2xl border-r border-white/10 transform transition-transform duration-400 cubic-bezier(0.16, 1, 0.3, 1) z-50 ${
             sidebarOpen ? 'translate-x-0' : '-translate-x-full'
           }`}
         >
           {/* Top Section: Drawer Header */}
-          <div>
-            <div className="p-6 border-b border-white/10 flex items-center justify-between bg-[#060b0e]">
+          <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
+            <div className="p-5 sm:p-6 border-b border-white/10 flex items-center justify-between bg-[#060b0e] shrink-0">
               <div className="flex items-center gap-3">
                 <div className="w-9 h-9 rounded-xl bg-teal-500/10 border border-[#00d2b4]/40 flex items-center justify-center">
                   <ShieldCheck className="w-5 h-5 text-[#00d2b4]" />
                 </div>
                 <div>
-                  <h2 className="font-['Nunito'] font-black tracking-wider text-lg text-white leading-none">
+                  <h2 className="font-['Nunito'] font-black tracking-wider text-base sm:text-lg text-white leading-none">
                     MEDICARE
                   </h2>
                   <p className="text-[11px] text-[#00d2b4] mt-1 font-medium">Healthcare Portal</p>
@@ -278,7 +244,7 @@ const Navbar = () => {
             </div>
 
             {/* Navigation Links */}
-            <div className="px-4 py-6 space-y-1.5 overflow-y-auto max-h-[calc(100vh-250px)]">
+            <div className="px-3 sm:px-4 py-4 sm:py-6 space-y-1.5 flex-1 overflow-y-auto">
               <p className="px-3 text-[11px] uppercase tracking-widest text-slate-500 font-bold mb-3">Navigation</p>
               {navLinks.map((link) => {
                 const Icon = link.icon;

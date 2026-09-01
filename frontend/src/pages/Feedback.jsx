@@ -152,26 +152,28 @@ const Feedback = () => {
           {/* Star Rating Selector */}
           <div className="space-y-2">
             <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block pl-1">Experience Rating</label>
-            <div className="flex items-center gap-1.5 p-2 bg-slate-50 border border-slate-100 rounded-2xl w-fit">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <button
-                  key={star}
-                  type="button"
-                  onClick={() => setRating(star)}
-                  onMouseEnter={() => setHoverRating(star)}
-                  onMouseLeave={() => setHoverRating(0)}
-                  className="p-1 text-slate-300 hover:scale-110 transition-transform cursor-pointer"
-                >
-                  <Star
-                    className={`w-8 h-8 transition-colors ${
-                      star <= (hoverRating || rating) 
-                        ? 'fill-amber-400 text-amber-400' 
-                        : 'text-slate-200'
-                    }`}
-                  />
-                </button>
-              ))}
-              <span className="text-xs font-bold text-slate-500 px-3 capitalize">
+            <div className="flex flex-wrap items-center gap-1.5 p-2 bg-slate-50 border border-slate-100 rounded-2xl w-fit max-w-full">
+              <div className="flex items-center gap-1">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <button
+                    key={star}
+                    type="button"
+                    onClick={() => setRating(star)}
+                    onMouseEnter={() => setHoverRating(star)}
+                    onMouseLeave={() => setHoverRating(0)}
+                    className="p-1 text-slate-300 hover:scale-110 transition-transform cursor-pointer"
+                  >
+                    <Star
+                      className={`w-6 h-6 xs:w-7 xs:h-7 sm:w-8 sm:h-8 transition-colors ${
+                        star <= (hoverRating || rating) 
+                          ? 'fill-amber-400 text-amber-400' 
+                          : 'text-slate-200'
+                      }`}
+                    />
+                  </button>
+                ))}
+              </div>
+              <span className="text-xs font-bold text-slate-600 px-2.5 capitalize">
                 {rating === 5 && 'Excellent'}
                 {rating === 4 && 'Good'}
                 {rating === 3 && 'Average'}

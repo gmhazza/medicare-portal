@@ -77,18 +77,21 @@ const About = () => {
 
     // Specialized Doctors Grid Scroll Animation
     const docElems = document.querySelectorAll('.doctor-scroll-elem');
+    const isMobile = window.innerWidth < 768;
+    const maxShift = isMobile ? 35 : 100;
+
     docElems.forEach((elem) => {
       const image = elem.querySelector('img');
       if (!image) return;
 
-      const xTransform = gsap.utils.random(-120, 120);
+      const xTransform = gsap.utils.random(-maxShift, maxShift);
 
       gsap.set(image, {
         transformOrigin: `${xTransform < 0 ? '0%' : '100%'} 50%`,
       });
 
       gsap.to(image, {
-        scale: 0,
+        scale: 0.2,
         ease: 'none',
         scrollTrigger: {
           trigger: image,
@@ -118,22 +121,22 @@ const About = () => {
   }, { scope: containerRef });
 
   return (
-    <div ref={containerRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-20">
+    <div ref={containerRef} className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-14 sm:space-y-20 w-full max-w-[100vw] overflow-x-clip">
       
       {/* 1. Hero / Vision Banner */}
-      <div className="relative rounded-3xl bg-black text-white overflow-hidden p-8 sm:p-16 text-left border border-slate-800 shadow-xl">
+      <div className="relative rounded-3xl bg-black text-white overflow-hidden p-6 sm:p-16 text-left border border-slate-800 shadow-xl">
         <div className="absolute top-0 right-0 w-96 h-96 bg-teal-800/10 rounded-full blur-3xl -z-10"></div>
         <div className="absolute -bottom-10 -left-10 w-96 h-96 bg-teal-950/20 rounded-full blur-3xl -z-10"></div>
         
-        <div className="max-w-3xl space-y-6">
-          <span className="inline-flex items-center gap-1 bg-teal-500/20 text-teal-300 border border-teal-500/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+        <div className="max-w-3xl space-y-4 sm:space-y-6">
+          <span className="inline-flex items-center gap-1 bg-teal-500/20 text-teal-300 border border-teal-500/30 text-[11px] sm:text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
             <HeartPulse className="w-3.5 h-3.5" />
             Healthcare Innovation
           </span>
-          <h1 className="about-hero-title text-4xl sm:text-5xl font-black font-heading leading-tight tracking-tight">
+          <h1 className="about-hero-title text-3xl sm:text-5xl font-black font-heading leading-tight tracking-tight text-white">
             Redefining Medical Diagnostics & Clinical Checkups
           </h1>
-          <p className="about-hero-text text-sm sm:text-base text-teal-150 leading-relaxed font-body">
+          <p className="about-hero-text text-xs sm:text-base text-teal-100/90 leading-relaxed font-body">
             MediCare Portal is a pioneering telemedicine and healthcare scheduling ecosystem. 
             Initially designed to support the student and faculty demographic at Ibadat International University, Islamabad, 
             the system has expanded into an enterprise-grade digital health solution offering 24/7 AI diagnosis, 
@@ -142,7 +145,7 @@ const About = () => {
         </div>
 
         {/* Dynamic Metric Ticks */}
-        <div className="about-hero-stats grid grid-cols-2 md:grid-cols-4 gap-6 pt-10 border-t border-teal-900 mt-12 text-center md:text-left">
+        <div className="about-hero-stats grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 pt-8 sm:pt-10 border-t border-teal-900 mt-8 sm:mt-12 text-center md:text-left">
           <div className="space-y-1">
             <h3 className="text-3xl sm:text-4xl font-extrabold text-teal-400 font-heading">
               <span className="stat-count">12000</span>+
@@ -306,29 +309,33 @@ const About = () => {
         </div>
 
         {/* 8-Column Grid spanning 20 rows — Floating Doctor Images with Scroll Animation */}
-        <div className="w-full relative py-4">
+        <div className="w-full relative py-4 overflow-x-clip">
           <div 
-            className="grid grid-cols-8 gap-3 sm:gap-6 p-2 relative z-0"
+            className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2 xs:gap-3 sm:gap-6 p-2 relative z-0"
             style={{
-              gridTemplateRows: 'repeat(20, 32vh)',
+              gridTemplateRows: 'repeat(20, min(32vh, 220px))',
             }}
           >
-            {gridItems.map((item, idx) => (
-              <div
-                key={idx}
-                className="doctor-scroll-elem col-span-1 row-span-1 w-full h-full min-h-[160px]"
-                style={{
-                  gridRow: item.r,
-                  gridColumn: item.c,
-                }}
-              >
-                <img
-                  src={item.img}
-                  alt="Specialist Doctor"
-                  className="w-full h-full object-cover rounded-2xl shadow-xl will-change-transform pointer-events-none"
-                />
-              </div>
-            ))}
+            {gridItems.map((item, idx) => {
+              // Dynamically wrap columns on smaller viewports
+              const colSpanClass = "";
+              return (
+                <div
+                  key={idx}
+                  className={`doctor-scroll-elem col-span-1 row-span-1 w-full h-full min-h-[110px] sm:min-h-[160px] ${colSpanClass}`}
+                  style={{
+                    gridRow: item.r,
+                    gridColumn: `var(--col-${item.c}, ${item.c > 4 ? ((item.c - 1) % 4) + 1 : item.c})`,
+                  }}
+                >
+                  <img
+                    src={item.img}
+                    alt="Specialist Doctor"
+                    className="w-full h-full object-cover rounded-xl sm:rounded-2xl shadow-lg sm:shadow-xl will-change-transform pointer-events-none"
+                  />
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

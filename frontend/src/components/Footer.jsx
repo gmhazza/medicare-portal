@@ -117,40 +117,40 @@ const Footer = () => {
           </div>
 
           {/* Centered Social Media Links */}
-          <div className="flex justify-center items-center gap-6 pt-8 pb-4 border-t border-teal-900/30">
-            <a href="#" className="p-2.5 rounded-full border border-teal-500 text-teal-500 hover:text-teal-400 hover:border-teal-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_12px_rgba(20,184,166,0.6)] flex items-center justify-center" aria-label="Instagram">
-              <svg className="w-5 h-5 fill-none stroke-current stroke-2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+          <div className="flex flex-wrap justify-center items-center gap-3.5 sm:gap-6 pt-6 sm:pt-8 pb-4 border-t border-teal-900/30">
+            <a href="#" className="p-2 sm:p-2.5 rounded-full border border-teal-500 text-teal-500 hover:text-teal-400 hover:border-teal-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_12px_rgba(20,184,166,0.6)] flex items-center justify-center" aria-label="Instagram">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5 fill-none stroke-current stroke-2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
                 <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
                 <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
               </svg>
             </a>
-            <a href="#" className="p-2.5 rounded-full border border-teal-500 text-teal-500 hover:text-teal-400 hover:border-teal-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_12px_rgba(20,184,166,0.6)] flex items-center justify-center" aria-label="Facebook">
-              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+            <a href="#" className="p-2 sm:p-2.5 rounded-full border border-teal-500 text-teal-500 hover:text-teal-400 hover:border-teal-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_12px_rgba(20,184,166,0.6)] flex items-center justify-center" aria-label="Facebook">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5 fill-current" viewBox="0 0 24 24">
                 <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
               </svg>
             </a>
-            <a href="#" className="p-2.5 rounded-full border border-teal-500 text-teal-500 hover:text-teal-400 hover:border-teal-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_12px_rgba(20,184,166,0.6)] flex items-center justify-center" aria-label="Twitter">
-              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+            <a href="#" className="p-2 sm:p-2.5 rounded-full border border-teal-500 text-teal-500 hover:text-teal-400 hover:border-teal-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_12px_rgba(20,184,166,0.6)] flex items-center justify-center" aria-label="Twitter">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5 fill-current" viewBox="0 0 24 24">
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
               </svg>
             </a>
-            <a href="#" className="p-2.5 rounded-full border border-teal-500 text-teal-500 hover:text-teal-400 hover:border-teal-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_12px_rgba(20,184,166,0.6)] flex items-center justify-center" aria-label="LinkedIn">
-              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+            <a href="#" className="p-2 sm:p-2.5 rounded-full border border-teal-500 text-teal-500 hover:text-teal-400 hover:border-teal-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_12px_rgba(20,184,166,0.6)] flex items-center justify-center" aria-label="LinkedIn">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5 fill-current" viewBox="0 0 24 24">
                 <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
               </svg>
             </a>
-            <a href="#" className="p-2.5 rounded-full border border-teal-500 text-teal-500 hover:text-teal-400 hover:border-teal-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_12px_rgba(20,184,166,0.6)] flex items-center justify-center" aria-label="YouTube">
-              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+            <a href="#" className="p-2 sm:p-2.5 rounded-full border border-teal-500 text-teal-500 hover:text-teal-400 hover:border-teal-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_12px_rgba(20,184,166,0.6)] flex items-center justify-center" aria-label="YouTube">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5 fill-current" viewBox="0 0 24 24">
                 <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.108C19.522 3.5 12 3.5 12 3.5s-7.522 0-9.388.555A3.002 3.002 0 0 0 .5 6.163C0 8.04 0 12 0 12s0 3.96.5 5.837a3.003 3.003 0 0 0 2.11 2.108c1.866.555 9.388.555 9.388.555s7.522 0 9.388-.555a3.002 3.002 0 0 0 2.11-2.108c.5-1.877.5-5.837.5-5.837s0-3.96-.5-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
               </svg>
             </a>
           </div>
 
           {/* Bottom Bar */}
-          <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-teal-100/50 font-body">
+          <div className="pt-6 sm:pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-teal-100/50 font-body text-center md:text-left">
             <p>© {new Date().getFullYear()} MediCare Sihala Portal. All rights reserved.</p>
-            <div className="flex items-center gap-6">
+            <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6">
               <a href="#" className="hover:text-teal-400 transition-colors">Terms of Service</a>
               <a href="#" className="hover:text-teal-400 transition-colors">Privacy Policy</a>
               <a href="#" className="hover:text-teal-400 transition-colors">Do Not Sell My Info</a>

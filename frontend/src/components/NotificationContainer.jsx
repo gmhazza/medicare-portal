@@ -65,11 +65,11 @@ const NotificationContainer = () => {
       // Phase 2: Expand the pill — logo shifts left, text space opens
       .to(island, {
         width: 'auto',
-        minWidth: 240,
-        maxWidth: 420,
+        minWidth: Math.min(240, window.innerWidth - 32),
+        maxWidth: Math.min(420, window.innerWidth - 24),
         height: 54,
         paddingLeft: 16,
-        paddingRight: 22,
+        paddingRight: 20,
         borderRadius: '27px',
         duration: 0.35,
         ease: 'power3.out',
@@ -77,8 +77,8 @@ const NotificationContainer = () => {
 
       // Phase 3: Text fades in AND expands WITH the pill (synced)
       .to(text, {
-        maxWidth: 320,
-        paddingLeft: 12,
+        maxWidth: Math.min(320, window.innerWidth - 85),
+        paddingLeft: 10,
         opacity: 1,
         duration: 0.3,
         ease: 'power2.out',

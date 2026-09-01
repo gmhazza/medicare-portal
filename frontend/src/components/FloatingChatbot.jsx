@@ -111,7 +111,7 @@ const FloatingChatbot = () => {
   };
 
   return (
-    <div className="fixed bottom-8 right-8 z-50 font-body">
+    <div className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 z-50 font-body">
       {/* Floating Action Button - 3D Interactive Medicare Robot */}
       {!isOpen && (
         <MedicareRobot3D 
@@ -123,7 +123,7 @@ const FloatingChatbot = () => {
 
       {/* Expandable Chat Card */}
       {isOpen && (
-        <div className="w-96 max-w-[calc(100vw-2rem)] h-[500px] flex flex-col bg-white border border-slate-100 rounded-3xl shadow-2xl overflow-hidden transition-all duration-300 animate-in slide-in-from-bottom-5 fade-in">
+        <div className="w-[360px] max-w-[calc(100vw-1.5rem)] h-[min(520px,calc(100vh-5.5rem))] flex flex-col bg-white border border-slate-100 rounded-3xl shadow-2xl overflow-hidden transition-all duration-300 animate-in slide-in-from-bottom-5 fade-in">
           {/* Header */}
           <div className="bg-teal-800 text-white p-4 flex justify-between items-center shrink-0">
             <div className="flex items-center gap-3">

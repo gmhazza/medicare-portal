@@ -139,8 +139,8 @@ const DoctorDashboard = () => {
       // Call doctor appointment completion logic with vitals
       await api.completeAppointment(apptId, proofText, vitalsObj);
       
-      const appt = pendingList.find(a => a._id === apptId);
-      const svc = typeof appt?.service === 'object' ? appt.service : (services.find(s => s._id === appt?.service) || {});
+      const appt = appointments.find(a => a._id === apptId);
+      const svcName = appt?.service?.service_name || appt?.service?.name || 'Medical Care';
       
       setActiveProofInput(null);
       setProofText('');
@@ -149,7 +149,7 @@ const DoctorDashboard = () => {
       setSleepCycles('');
       setBloodGlucose('');
       
-      showNotification(`Appoinment for ${svc?.service_name || 'Medical Care'} Reported  sucessfully`);
+      showNotification(`Appointment for ${svcName} reported successfully!`);
 
       // Reload lists
       loadDoctorData();
@@ -178,20 +178,20 @@ const DoctorDashboard = () => {
   }
 
   return (
-    <div ref={containerRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+    <div ref={containerRef} className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-8 sm:space-y-12 w-full max-w-[100vw] overflow-x-clip">
       
       {/* 1. Profile Header & Active Control */}
-      <div className="doctor-header bg-white rounded-3xl border border-slate-100 p-6 sm:p-8 shadow-md flex flex-col lg:flex-row lg:items-center justify-between gap-8 relative overflow-hidden">
+      <div className="doctor-header bg-white rounded-3xl border border-slate-100 p-5 sm:p-8 shadow-md flex flex-col lg:flex-row lg:items-center justify-between gap-5 sm:gap-8 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-44 h-44 bg-teal-50/30 rounded-bl-full -z-10"></div>
-        <div className="flex items-center gap-5">
+        <div className="flex flex-col xs:flex-row items-start xs:items-center gap-4 sm:gap-5">
           <img
             src={getDoctorAvatar(user)}
             alt={user.name}
-            className="w-20 h-20 rounded-full border-2 border-teal-800 object-cover shrink-0 shadow-sm"
+            className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-teal-800 object-cover shrink-0 shadow-sm"
           />
           <div className="space-y-1">
-            <h1 className="text-2xl sm:text-3xl font-black text-teal-950 font-heading">{user.name}</h1>
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-slate-500">
+            <h1 className="text-xl sm:text-3xl font-black text-teal-950 font-heading">{user.name}</h1>
+            <div className="flex flex-wrap items-center gap-x-3 sm:gap-x-4 gap-y-1 text-xs sm:text-sm text-slate-500">
               <span className="flex items-center gap-1">
                 <Stethoscope className="w-4 h-4 text-teal-850" />
                 Speciality: <span className="capitalize font-semibold text-teal-800">{user.pillar} Division</span>
@@ -206,14 +206,14 @@ const DoctorDashboard = () => {
         </div>
 
         {/* Live Availability Toggle Card */}
-        <div className="doctor-availability-card p-4 bg-slate-50 border border-slate-100 rounded-2xl flex items-center justify-between gap-6">
+        <div className="doctor-availability-card p-3.5 sm:p-4 bg-slate-50 border border-slate-100 rounded-2xl flex items-center justify-between gap-4 sm:gap-6 w-full lg:w-auto">
           <div className="text-left">
             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Desk Scheduling</p>
-            <h4 className="text-sm font-bold text-slate-800 mt-0.5">Availability Status</h4>
+            <h4 className="text-xs sm:text-sm font-bold text-slate-800 mt-0.5">Availability Status</h4>
           </div>
           <button
             onClick={handleToggleAvailability}
-            className={`w-28 py-2.5 rounded-xl text-xs font-bold transition-all shadow-xs cursor-pointer ${
+            className={`w-24 sm:w-28 py-2 sm:py-2.5 rounded-xl text-xs font-bold transition-all shadow-xs cursor-pointer ${
               isAvailable 
                 ? 'bg-emerald-500 text-teal-950 hover:bg-emerald-600' 
                 : 'bg-rose-500 text-white hover:bg-rose-600'

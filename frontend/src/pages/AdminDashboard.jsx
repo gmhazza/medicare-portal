@@ -299,25 +299,25 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-8 sm:space-y-12 w-full max-w-[100vw] overflow-x-clip">
       
       {/* 1. Header Profile Box */}
-      <div className="admin-header bg-black text-white rounded-3xl border border-slate-800 p-6 sm:p-8 shadow-2xl flex flex-col md:flex-row md:items-center justify-between gap-6 text-left relative overflow-hidden">
+      <div className="admin-header bg-black text-white rounded-3xl border border-slate-800 p-5 sm:p-8 shadow-2xl flex flex-col md:flex-row md:items-center justify-between gap-5 sm:gap-6 text-left relative overflow-hidden">
         <div className="absolute top-0 right-0 w-44 h-44 bg-teal-50/30 rounded-bl-full -z-10"></div>
-        <div className="flex items-center gap-5">
-          <div className="w-16 h-16 rounded-2xl bg-teal-850 text-white flex items-center justify-center font-bold text-xl shadow-md">
+        <div className="flex flex-col xs:flex-row items-start xs:items-center gap-4 sm:gap-5">
+          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-teal-850 text-white flex items-center justify-center font-bold text-lg sm:text-xl shadow-md shrink-0">
             AD
           </div>
           <div className="space-y-1">
-            <h1 className="text-2xl sm:text-3xl font-black text-white font-heading">Control Panel: {user.name}</h1>
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-slate-300">
+            <h1 className="text-xl sm:text-3xl font-black text-white font-heading">Control Panel: {user.name}</h1>
+            <div className="flex flex-wrap items-center gap-x-3 sm:gap-x-4 gap-y-1 text-xs sm:text-sm text-slate-300">
               <span className="flex items-center gap-1">
-                <User className="w-4 h-4 text-teal-400" />
+                <User className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-teal-400" />
                 Staff Rank: System Administrator
               </span>
               <span>•</span>
               <span className="flex items-center gap-1">
-                <Mail className="w-4 h-4" />
+                <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 {user.email}
               </span>
             </div>
@@ -325,10 +325,10 @@ const AdminDashboard = () => {
         </div>
 
         {/* 2. Top Navigation Tabs */}
-        <div className="admin-tabs flex flex-wrap gap-2 justify-start lg:justify-center border-b border-slate-700/50 pb-4">
+        <div className="admin-tabs flex items-center overflow-x-auto no-scrollbar flex-nowrap md:flex-wrap gap-1.5 sm:gap-2 justify-start lg:justify-center border-b border-slate-700/50 pb-3 sm:pb-4 w-full">
           <button
             onClick={() => handleTabChange('services')}
-            className={`px-3.5 py-2 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+            className={`px-3 sm:px-3.5 py-1.5 sm:py-2 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 shrink-0 ${
               activeForm === 'services' ? 'text-[#00d5be]' : 'text-[#fafffd] hover:text-[#00d5be]/80'
             }`}
           >
@@ -337,7 +337,7 @@ const AdminDashboard = () => {
           </button>
           <button
             onClick={() => handleTabChange('patients')}
-            className={`px-3.5 py-2 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+            className={`px-3 sm:px-3.5 py-1.5 sm:py-2 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 shrink-0 ${
               activeForm === 'patients' ? 'text-[#00d5be]' : 'text-[#fafffd] hover:text-[#00d5be]/80'
             }`}
           >
@@ -346,7 +346,7 @@ const AdminDashboard = () => {
           </button>
           <button
             onClick={() => handleTabChange('doctors')}
-            className={`px-3.5 py-2 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+            className={`px-3 sm:px-3.5 py-1.5 sm:py-2 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 shrink-0 ${
               activeForm === 'doctors' ? 'text-[#00d5be]' : 'text-[#fafffd] hover:text-[#00d5be]/80'
             }`}
           >
@@ -355,7 +355,7 @@ const AdminDashboard = () => {
           </button>
           <button
             onClick={() => handleTabChange('appointments')}
-            className={`px-3.5 py-2 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+            className={`px-3 sm:px-3.5 py-1.5 sm:py-2 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 shrink-0 ${
               activeForm === 'appointments' ? 'text-[#00d5be]' : 'text-[#fafffd] hover:text-[#00d5be]/80'
             }`}
           >
@@ -364,7 +364,7 @@ const AdminDashboard = () => {
           </button>
           <button
             onClick={() => handleTabChange('add-doctor')}
-            className={`px-3.5 py-2 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+            className={`px-3 sm:px-3.5 py-1.5 sm:py-2 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 shrink-0 ${
               activeForm === 'add-doctor' ? 'text-[#00d5be]' : 'text-[#fafffd] hover:text-[#00d5be]/80'
             }`}
           >
@@ -373,7 +373,7 @@ const AdminDashboard = () => {
           </button>
           <button
             onClick={() => handleTabChange('add-admin')}
-            className={`px-3.5 py-2 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+            className={`px-3 sm:px-3.5 py-1.5 sm:py-2 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 shrink-0 ${
               activeForm === 'add-admin' ? 'text-[#00d5be]' : 'text-[#fafffd] hover:text-[#00d5be]/80'
             }`}
           >
@@ -382,7 +382,7 @@ const AdminDashboard = () => {
           </button>
           <button
             onClick={() => handleTabChange('inquiries')}
-            className={`px-3.5 py-2 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 relative ${
+            className={`px-3 sm:px-3.5 py-1.5 sm:py-2 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 shrink-0 relative ${
               activeForm === 'inquiries' ? 'text-[#00d5be]' : 'text-[#fafffd] hover:text-[#00d5be]/80'
             }`}
           >
@@ -733,49 +733,51 @@ const AdminDashboard = () => {
           
           {activeForm === 'patients' && (
             <div className="space-y-4">
-              <h3 className="text-lg font-bold text-teal-950 font-heading pl-1">Registered Patient Directory</h3>
+              <h3 className="text-base sm:text-lg font-bold text-teal-950 font-heading pl-1">Registered Patient Directory</h3>
               <div className="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-xs">
                 {patientsList.length === 0 ? (
                   <div className="p-8 text-center text-slate-400">No patient accounts currently registered.</div>
                 ) : (
-                  <table className="w-full text-sm">
-                    <thead className="bg-slate-50 border-b border-slate-100">
-                      <tr className="text-slate-500 font-bold uppercase text-[10px] tracking-wider text-left">
-                        <th className="px-6 py-4">Patient Profile</th>
-                        <th className="px-6 py-4">Email Address</th>
-                        <th className="px-6 py-4">Gender</th>
-                        <th className="px-6 py-4 text-right">Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-50">
-                      {patientsList.map((pt) => (
-                        <tr key={pt._id} className="hover:bg-slate-50/50 transition-colors">
-                          <td className="px-6 py-4 flex items-center gap-3">
-                            <img
-                              src={pt.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(pt.name)}&background=0F766E&color=fff`}
-                              alt={pt.name}
-                              className="w-9 h-9 rounded-full object-cover border border-slate-100"
-                            />
-                            <div>
-                              <div className="font-bold text-slate-800">{pt.name}</div>
-                              <div className="text-[10px] text-slate-400 font-semibold uppercase">ID: {pt._id}</div>
-                            </div>
-                          </td>
-                          <td className="px-6 py-4 text-slate-600 font-medium">{pt.email}</td>
-                          <td className="px-6 py-4 capitalize text-slate-500">{pt.gender || 'not-specified'}</td>
-                          <td className="px-6 py-4 text-right">
-                            <button
-                              onClick={() => handleDeletePatient(pt._id, pt.name)}
-                              className="p-1.5 rounded-lg border border-slate-100 hover:border-rose-100 text-slate-400 hover:text-rose-600 transition-all cursor-pointer"
-                              title="Delete Patient Account"
-                            >
-                              <Trash2 className="w-4 h-4" />
-                            </button>
-                          </td>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm min-w-[550px]">
+                      <thead className="bg-slate-50 border-b border-slate-100">
+                        <tr className="text-slate-500 font-bold uppercase text-[10px] tracking-wider text-left">
+                          <th className="px-6 py-4">Patient Profile</th>
+                          <th className="px-6 py-4">Email Address</th>
+                          <th className="px-6 py-4">Gender</th>
+                          <th className="px-6 py-4 text-right">Actions</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody className="divide-y divide-slate-50">
+                        {patientsList.map((pt) => (
+                          <tr key={pt._id} className="hover:bg-slate-50/50 transition-colors">
+                            <td className="px-6 py-4 flex items-center gap-3">
+                              <img
+                                src={pt.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(pt.name)}&background=0F766E&color=fff`}
+                                alt={pt.name}
+                                className="w-9 h-9 rounded-full object-cover border border-slate-100 shrink-0"
+                              />
+                              <div>
+                                <div className="font-bold text-slate-800">{pt.name}</div>
+                                <div className="text-[10px] text-slate-400 font-semibold uppercase">ID: {pt._id}</div>
+                              </div>
+                            </td>
+                            <td className="px-6 py-4 text-slate-600 font-medium">{pt.email}</td>
+                            <td className="px-6 py-4 capitalize text-slate-500">{pt.gender || 'not-specified'}</td>
+                            <td className="px-6 py-4 text-right">
+                              <button
+                                onClick={() => handleDeletePatient(pt._id, pt.name)}
+                                className="p-1.5 rounded-lg border border-slate-100 hover:border-rose-100 text-slate-400 hover:text-rose-600 transition-all cursor-pointer"
+                                title="Delete Patient Account"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 )}
               </div>
             </div>
@@ -783,59 +785,61 @@ const AdminDashboard = () => {
 
           {activeForm === 'doctors' && (
             <div className="space-y-4">
-              <h3 className="text-lg font-bold text-teal-950 font-heading pl-1">Registered Doctor Registers</h3>
+              <h3 className="text-base sm:text-lg font-bold text-teal-950 font-heading pl-1">Registered Doctor Registers</h3>
               <div className="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-xs">
                 {doctorsList.length === 0 ? (
                   <div className="p-8 text-center text-slate-400">No doctor accounts currently registered.</div>
                 ) : (
-                  <table className="w-full text-sm">
-                    <thead className="bg-slate-50 border-b border-slate-100">
-                      <tr className="text-slate-500 font-bold uppercase text-[10px] tracking-wider text-left">
-                        <th className="px-6 py-4">Physician Profile</th>
-                        <th className="px-6 py-4">Email Address</th>
-                        <th className="px-6 py-4">Medical Specialty</th>
-                        <th className="px-6 py-4">Availability</th>
-                        <th className="px-6 py-4 text-right">Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-50">
-                      {doctorsList.map((doc) => (
-                        <tr key={doc._id} className="hover:bg-slate-50/50 transition-colors">
-                          <td className="px-6 py-4 flex items-center gap-3">
-                            <img
-                              src={getDoctorAvatar(doc)}
-                              alt={doc.name}
-                              className="w-9 h-9 rounded-full object-cover border border-slate-100"
-                            />
-                            <div>
-                              <div className="font-bold text-slate-800">{doc.name}</div>
-                              <div className="text-[10px] text-slate-400 font-semibold uppercase">ID: {doc._id}</div>
-                            </div>
-                          </td>
-                          <td className="px-6 py-4 text-slate-600 font-medium">{doc.email}</td>
-                          <td className="px-6 py-4 capitalize text-slate-800 font-extrabold">{doc.pillar}</td>
-                          <td className="px-6 py-4">
-                            <span className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full border ${
-                              doc.available !== false 
-                                ? 'bg-emerald-50 text-emerald-800 border-emerald-100' 
-                                : 'bg-slate-50 text-slate-500 border-slate-200'
-                            }`}>
-                              {doc.available !== false ? 'Available' : 'Busy / Off'}
-                            </span>
-                          </td>
-                          <td className="px-6 py-4 text-right">
-                            <button
-                              onClick={() => handleDeleteDoctor(doc._id, doc.name)}
-                              className="p-1.5 rounded-lg border border-slate-100 hover:border-rose-100 text-slate-400 hover:text-rose-600 transition-all cursor-pointer"
-                              title="Delete Doctor Account"
-                            >
-                              <Trash2 className="w-4 h-4" />
-                            </button>
-                          </td>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm min-w-[650px]">
+                      <thead className="bg-slate-50 border-b border-slate-100">
+                        <tr className="text-slate-500 font-bold uppercase text-[10px] tracking-wider text-left">
+                          <th className="px-6 py-4">Physician Profile</th>
+                          <th className="px-6 py-4">Email Address</th>
+                          <th className="px-6 py-4">Medical Specialty</th>
+                          <th className="px-6 py-4">Availability</th>
+                          <th className="px-6 py-4 text-right">Actions</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody className="divide-y divide-slate-50">
+                        {doctorsList.map((doc) => (
+                          <tr key={doc._id} className="hover:bg-slate-50/50 transition-colors">
+                            <td className="px-6 py-4 flex items-center gap-3">
+                              <img
+                                src={getDoctorAvatar(doc)}
+                                alt={doc.name}
+                                className="w-9 h-9 rounded-full object-cover border border-slate-100 shrink-0"
+                              />
+                              <div>
+                                <div className="font-bold text-slate-800">{doc.name}</div>
+                                <div className="text-[10px] text-slate-400 font-semibold uppercase">ID: {doc._id}</div>
+                              </div>
+                            </td>
+                            <td className="px-6 py-4 text-slate-600 font-medium">{doc.email}</td>
+                            <td className="px-6 py-4 capitalize text-slate-800 font-extrabold">{doc.pillar}</td>
+                            <td className="px-6 py-4">
+                              <span className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full border ${
+                                doc.available !== false 
+                                  ? 'bg-emerald-50 text-emerald-800 border-emerald-100' 
+                                  : 'bg-slate-50 text-slate-500 border-slate-200'
+                              }`}>
+                                {doc.available !== false ? 'Available' : 'Busy / Off'}
+                              </span>
+                            </td>
+                            <td className="px-6 py-4 text-right">
+                              <button
+                                onClick={() => handleDeleteDoctor(doc._id, doc.name)}
+                                className="p-1.5 rounded-lg border border-slate-100 hover:border-rose-100 text-slate-400 hover:text-rose-600 transition-all cursor-pointer"
+                                title="Delete Doctor Account"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 )}
               </div>
             </div>
@@ -843,91 +847,93 @@ const AdminDashboard = () => {
 
           {activeForm === 'appointments' && (
             <div className="space-y-4">
-              <h3 className="text-lg font-bold text-teal-950 font-heading pl-1">All Consultation Schedules</h3>
+              <h3 className="text-base sm:text-lg font-bold text-teal-950 font-heading pl-1">All Consultation Schedules</h3>
               <div className="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-xs">
                 {appointmentsList.length === 0 ? (
                   <div className="p-8 text-center text-slate-400">No appointments scheduled.</div>
                 ) : (
-                  <table className="w-full text-sm">
-                    <thead className="bg-slate-50 border-b border-slate-100">
-                      <tr className="text-slate-500 font-bold uppercase text-[10px] tracking-wider text-left">
-                        <th className="px-6 py-4">Patient details</th>
-                        <th className="px-6 py-4">Assigned physician</th>
-                        <th className="px-6 py-4">Consultation specialty</th>
-                        <th className="px-6 py-4">date</th>
-                        <th className="px-6 py-4 text-center">Status</th>
-                        <th className="px-6 py-4 text-right">Billing</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-50">
-                      {appointmentsList.map((appt) => {
-                        const dateText = new Date(appt.appointment_date).toLocaleDateString(undefined, {
-                          month: 'short', day: 'numeric', year: 'numeric'
-                        });
-                        
-                        return (
-                          <tr key={appt._id} className="hover:bg-slate-50/50 transition-colors">
-                            <td className="px-6 py-4">
-                              <div className="font-bold text-slate-800">{appt.patient?.name || 'Registered Patient'}</div>
-                              <div className="text-[10px] text-slate-400">{appt.patient?.email || ''}</div>
-                            </td>
-                            <td className="px-6 py-4">
-                              <div className="font-bold text-slate-800">{appt.doctor?.name || 'Dr. Specialist'}</div>
-                              <div className="text-[10px] text-teal-700 capitalize font-bold">{appt.doctor?.pillar || 'Medical Column'}</div>
-                            </td>
-                            <td className="px-6 py-4 font-semibold text-slate-700">
-                              {appt.service?.service_name || 'Clinic consultation'}
-                            </td>
-                            <td className="px-6 py-4 text-slate-500 font-medium">
-                              <span className="flex items-center gap-1.5">
-                                <Clock className="w-3.5 h-3.5 text-slate-400" />
-                                {dateText}
-                              </span>
-                            </td>
-                            <td className="px-6 py-4 text-center">
-                              <span className={`inline-block text-[9px] font-extrabold px-2.5 py-0.5 rounded-full uppercase border ${
-                                appt.status === 'completed'
-                                  ? 'bg-emerald-50 text-emerald-800 border-emerald-100'
-                                  : appt.status === 'cancelled' || appt.status === 'no-show'
-                                  ? 'bg-rose-50 text-rose-800 border-rose-100'
-                                  : 'bg-amber-50 text-amber-800 border-amber-100'
-                              }`}>
-                                {appt.status}
-                              </span>
-                              {appt.status === 'completed' && appt.proof && (
-                                <div className="text-[9px] text-slate-400 italic max-w-xs truncate mx-auto mt-1" title={appt.proof}>
-                                  Proof: "{appt.proof}"
-                                </div>
-                              )}
-                            </td>
-                            <td className="px-6 py-4 text-right">
-                              <div className="font-bold text-slate-800">${appt.payment?.charges || appt.service?.charges || 100}</div>
-                              <div className="text-[10px] mt-0.5">
-                                <span className={`inline-flex items-center gap-0.5 font-bold ${
-                                  appt.payment?.paid 
-                                    ? 'text-emerald-700' 
-                                    : 'text-amber-600'
-                                }`}>
-                                  <CreditCard className="w-3 h-3 shrink-0" />
-                                  {appt.payment?.paid ? 'Paid' : 'Unpaid'}
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm min-w-[700px]">
+                      <thead className="bg-slate-50 border-b border-slate-100">
+                        <tr className="text-slate-500 font-bold uppercase text-[10px] tracking-wider text-left">
+                          <th className="px-6 py-4">Patient details</th>
+                          <th className="px-6 py-4">Assigned physician</th>
+                          <th className="px-6 py-4">Consultation specialty</th>
+                          <th className="px-6 py-4">date</th>
+                          <th className="px-6 py-4 text-center">Status</th>
+                          <th className="px-6 py-4 text-right">Billing</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-50">
+                        {appointmentsList.map((appt) => {
+                          const dateText = new Date(appt.appointment_date).toLocaleDateString(undefined, {
+                            month: 'short', day: 'numeric', year: 'numeric'
+                          });
+                          
+                          return (
+                            <tr key={appt._id} className="hover:bg-slate-50/50 transition-colors">
+                              <td className="px-6 py-4">
+                                <div className="font-bold text-slate-800">{appt.patient?.name || 'Registered Patient'}</div>
+                                <div className="text-[10px] text-slate-400">{appt.patient?.email || ''}</div>
+                              </td>
+                              <td className="px-6 py-4">
+                                <div className="font-bold text-slate-800">{appt.doctor?.name || 'Dr. Specialist'}</div>
+                                <div className="text-[10px] text-teal-700 capitalize font-bold">{appt.doctor?.pillar || 'Medical Column'}</div>
+                              </td>
+                              <td className="px-6 py-4 font-semibold text-slate-700">
+                                {appt.service?.service_name || 'Clinic consultation'}
+                              </td>
+                              <td className="px-6 py-4 text-slate-500 font-medium">
+                                <span className="flex items-center gap-1.5">
+                                  <Clock className="w-3.5 h-3.5 text-slate-400" />
+                                  {dateText}
                                 </span>
-                              </div>
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
+                              </td>
+                              <td className="px-6 py-4 text-center">
+                                <span className={`inline-block text-[9px] font-extrabold px-2.5 py-0.5 rounded-full uppercase border ${
+                                  appt.status === 'completed'
+                                    ? 'bg-emerald-50 text-emerald-800 border-emerald-100'
+                                    : appt.status === 'cancelled' || appt.status === 'no-show'
+                                    ? 'bg-rose-50 text-rose-800 border-rose-100'
+                                    : 'bg-amber-50 text-amber-800 border-amber-100'
+                                }`}>
+                                  {appt.status}
+                                </span>
+                                {appt.status === 'completed' && appt.proof && (
+                                  <div className="text-[9px] text-slate-400 italic max-w-xs truncate mx-auto mt-1" title={appt.proof}>
+                                    Proof: "{appt.proof}"
+                                  </div>
+                                )}
+                              </td>
+                              <td className="px-6 py-4 text-right">
+                                <div className="font-bold text-slate-800">${appt.payment?.charges || appt.service?.charges || 100}</div>
+                                <div className="text-[10px] mt-0.5">
+                                  <span className={`inline-flex items-center gap-0.5 font-bold ${
+                                    appt.payment?.paid 
+                                      ? 'text-emerald-700' 
+                                      : 'text-amber-600'
+                                  }`}>
+                                    <CreditCard className="w-3 h-3 shrink-0" />
+                                    {appt.payment?.paid ? 'Paid' : 'Unpaid'}
+                                  </span>
+                                </div>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
                 )}
               </div>
             </div>
           )}
 
           {activeForm === 'inquiries' && (
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start animate-in fade-in duration-200">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start animate-in fade-in duration-200">
               
-              {/* Left side: Services List */}
-              <div className="lg:col-span-8 bg-white rounded-3xl border border-slate-100 p-6 sm:p-8 shadow-xs text-left">
+              {/* Left side: Inquiries List */}
+              <div className="lg:col-span-6 bg-white rounded-3xl border border-slate-100 p-5 sm:p-8 shadow-xs text-left">
                 <h3 className="text-lg font-bold text-teal-950 font-heading pl-1">Patient Inquiries</h3>
                 <div className="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-xs">
                   {inquiriesList.length === 0 ? (

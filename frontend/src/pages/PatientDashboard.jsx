@@ -261,23 +261,23 @@ const PatientDashboard = () => {
   }
 
   return (
-    <div ref={containerRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+    <div ref={containerRef} className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8 sm:space-y-10 text-left w-full max-w-[100vw] overflow-x-clip">
       
       {/* Upper Dashboard Header: User Info */}
-      <div className="dashboard-header bg-black text-white rounded-3xl border border-slate-800 p-6 sm:p-8 shadow-2xl flex flex-col md:flex-row md:items-center justify-between gap-6 text-left relative overflow-hidden z-0">
+      <div className="dashboard-header bg-black text-white rounded-3xl border border-slate-800 p-5 sm:p-8 shadow-2xl flex flex-col md:flex-row md:items-center justify-between gap-5 sm:gap-6 text-left relative overflow-hidden z-0">
         <div className="absolute top-0 right-0 w-52 h-52 bg-teal-800/10 rounded-full blur-3xl -z-10"></div>
         <div className="absolute -bottom-10 -left-10 w-52 h-52 bg-teal-950/20 rounded-full blur-3xl -z-10"></div>
-        <div className="flex items-center gap-5">
+        <div className="flex flex-col xs:flex-row items-start xs:items-center gap-4 sm:gap-5">
           <img
             src={user.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=115E59&color=fff`}
             alt={user.name}
-            className="w-20 h-20 rounded-full border-2 border-teal-500 object-cover shrink-0 shadow-sm"
+            className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-teal-500 object-cover shrink-0 shadow-sm"
           />
           <div className="space-y-1">
-            <h1 className="text-2xl sm:text-3xl font-black text-teal-100 font-heading">Welcome, {user.name}</h1>
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-slate-400">
+            <h1 className="text-xl sm:text-3xl font-black text-teal-100 font-heading">Welcome, {user.name}</h1>
+            <div className="flex flex-wrap items-center gap-x-3 sm:gap-x-4 gap-y-1 text-xs sm:text-sm text-slate-400">
               <span className="flex items-center gap-1">
-                <User className="w-4 h-4 text-teal-400" />
+                <User className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-teal-400" />
                 Patient ID: {user._id?.substring(0, 10) || 'D1093'}
               </span>
               <span>•</span>
@@ -288,10 +288,10 @@ const PatientDashboard = () => {
           </div>
         </div>
 
-        <div className="flex gap-3">
+        <div className="flex flex-wrap gap-2.5 sm:gap-3 w-full md:w-auto">
           <Link
             to="/book"
-            className="px-6 py-3.5 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-xl shadow-md text-sm transition-all cursor-pointer"
+            className="flex-1 md:flex-initial text-center px-5 sm:px-6 py-3 sm:py-3.5 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-xl shadow-md text-xs sm:text-sm transition-all cursor-pointer"
           >
             New Consultation
           </Link>
@@ -301,7 +301,7 @@ const PatientDashboard = () => {
               e.preventDefault();
               window.dispatchEvent(new CustomEvent('open-chatbot'));
             }}
-            className="px-6 py-3.5 bg-slate-900 hover:bg-slate-850 text-slate-100 border border-slate-800 font-bold rounded-xl text-sm transition-all cursor-pointer"
+            className="flex-1 md:flex-initial text-center px-5 sm:px-6 py-3 sm:py-3.5 bg-slate-900 hover:bg-slate-850 text-slate-100 border border-slate-800 font-bold rounded-xl text-xs sm:text-sm transition-all cursor-pointer"
           >
             Chat Advisor
           </Link>
@@ -311,22 +311,22 @@ const PatientDashboard = () => {
 
       {/* Health Vitals Summary Row */}
       <div className="space-y-4">
-        <h3 className="text-lg font-bold text-teal-950 font-heading text-left pl-1">Vitals Summary Row</h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <h3 className="text-base sm:text-lg font-bold text-teal-950 font-heading text-left pl-1">Vitals Summary Row</h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
           {healthMetrics.map((metric, i) => (
             <div
               key={i}
-              className="vitals-card bg-white p-6 rounded-3xl border border-slate-100 shadow-xs flex flex-col gap-2 text-left"
+              className="vitals-card bg-white p-4 sm:p-6 rounded-3xl border border-slate-100 shadow-xs flex flex-col gap-1.5 sm:gap-2 text-left"
             >
               <div className="flex justify-between items-center">
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{metric.label}</span>
-                <span className="inline-block bg-teal-50 text-[9px] text-teal-800 font-bold px-2 py-0.5 rounded-full uppercase">
+                <span className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest">{metric.label}</span>
+                <span className="inline-block bg-teal-50 text-[8px] sm:text-[9px] text-teal-800 font-bold px-1.5 sm:px-2 py-0.5 rounded-full uppercase">
                   {metric.status}
                 </span>
               </div>
               <div>
-                <h4 className="text-2xl font-black text-slate-800 font-heading">{metric.value}</h4>
-                <p className="text-[10px] text-slate-500 mt-1">{metric.change}</p>
+                <h4 className="text-xl sm:text-2xl font-black text-slate-800 font-heading">{metric.value}</h4>
+                <p className="text-[9px] sm:text-[10px] text-slate-500 mt-0.5 sm:mt-1">{metric.change}</p>
               </div>
             </div>
           ))}
@@ -334,7 +334,7 @@ const PatientDashboard = () => {
       </div>
 
       {/* Bottom: Appointments History */}
-      <div className="appt-register bg-white rounded-3xl border border-slate-100 shadow-sm p-6 sm:p-8 text-left min-h-[500px]">
+      <div className="appt-register bg-white rounded-3xl border border-slate-100 shadow-sm p-4 sm:p-8 text-left min-h-[500px]">
           
           {/* Tabs header */}
           <div className="flex gap-4 border-b border-slate-100 pb-2">
