@@ -20,27 +20,35 @@ const doctorImages = [
   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHn9mWsgN1YGLASXNpEnKpmvQKg17JcEGtsmnAXpAGWw&s=10',
 ];
 
+const baseDoctors = [
+  { img: doctorImages[0], name: 'Dr. Arham Malik', spec: 'Cardiologist' },
+  { img: doctorImages[4], name: 'Dr. Sara Khan', spec: 'Dermatologist' },
+  { img: doctorImages[1], name: 'Dr. Tariq Mahmood', spec: 'Physician' },
+  { img: doctorImages[5], name: 'Dr. Ayesha Bilal', spec: 'Pediatrician' },
+  { img: doctorImages[2], name: 'Dr. Farhan Ali', spec: 'Orthopedic' },
+  { img: doctorImages[6], name: 'Dr. Nida Yasir', spec: 'Gynecologist' },
+  { img: doctorImages[3], name: 'Dr. Hamza Sheikh', spec: 'Neurologist' },
+  { img: doctorImages[7], name: 'Dr. Zainab Raza', spec: 'Radiologist' },
+];
+
+// Exactly 16 items (8 unique doctors doubled)
 const gridItems = [
-  { r: 1, c: 3, img: doctorImages[0] },
-  { r: 1, c: 7, img: doctorImages[4] },
-  { r: 2, c: 2, img: doctorImages[1] },
-  { r: 2, c: 6, img: doctorImages[5] },
-  { r: 3, c: 4, img: doctorImages[2] },
-  { r: 4, c: 8, img: doctorImages[6] },
-  { r: 5, c: 1, img: doctorImages[3] },
-  { r: 6, c: 5, img: doctorImages[7] },
-  { r: 7, c: 3, img: doctorImages[0] },
-  { r: 8, c: 7, img: doctorImages[4] },
-  { r: 9, c: 2, img: doctorImages[1] },
-  { r: 10, c: 6, img: doctorImages[5] },
-  { r: 11, c: 4, img: doctorImages[2] },
-  { r: 12, c: 8, img: doctorImages[6] },
-  { r: 13, c: 1, img: doctorImages[3] },
-  { r: 14, c: 5, img: doctorImages[7] },
-  { r: 15, c: 3, img: doctorImages[0] },
-  { r: 16, c: 7, img: doctorImages[4] },
-  { r: 18, c: 2, img: doctorImages[1] },
-  { r: 20, c: 5, img: doctorImages[5] },
+  { r: 1, c: 1, ...baseDoctors[0] },
+  { r: 1, c: 4, ...baseDoctors[1] },
+  { r: 2, c: 2, ...baseDoctors[2] },
+  { r: 2, c: 5, ...baseDoctors[3] },
+  { r: 3, c: 1, ...baseDoctors[4] },
+  { r: 3, c: 3, ...baseDoctors[5] },
+  { r: 4, c: 2, ...baseDoctors[6] },
+  { r: 4, c: 5, ...baseDoctors[7] },
+  { r: 5, c: 1, ...baseDoctors[0] },
+  { r: 5, c: 4, ...baseDoctors[1] },
+  { r: 6, c: 2, ...baseDoctors[2] },
+  { r: 6, c: 5, ...baseDoctors[3] },
+  { r: 7, c: 1, ...baseDoctors[4] },
+  { r: 7, c: 3, ...baseDoctors[5] },
+  { r: 8, c: 2, ...baseDoctors[6] },
+  { r: 8, c: 5, ...baseDoctors[7] },
 ];
 
 const About = () => {
@@ -76,41 +84,36 @@ const About = () => {
     });
 
     // Specialized Doctors Grid Scroll Animation
-    const docElems = document.querySelectorAll('.doctor-scroll-elem');
+    const docCards = document.querySelectorAll('.doctor-scroll-elem .doctor-card-inner');
     const isMobile = window.innerWidth < 768;
-    const maxShift = isMobile ? 35 : 100;
+    const maxShiftX = isMobile ? 18 : 45;
+    const maxShiftY = isMobile ? 25 : 60;
 
-    docElems.forEach((elem) => {
-      const image = elem.querySelector('img');
-      if (!image) return;
+    docCards.forEach((card, index) => {
+      const direction = index % 2 === 0 ? 1 : -1;
+      const xShift = ((index % 3) * (maxShiftX / 2) + 8) * direction;
+      const yShift = ((index % 4) * (maxShiftY / 3) + 12) * direction;
+      const rot = direction * (0.8 + (index % 3) * 0.6);
 
-      const xTransform = gsap.utils.random(-maxShift, maxShift);
-
-      gsap.set(image, {
-        transformOrigin: `${xTransform < 0 ? '0%' : '100%'} 50%`,
-      });
-
-      gsap.to(image, {
-        scale: 0.2,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: image,
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 1,
+      gsap.fromTo(card,
+        {
+          y: -yShift,
+          x: -xShift * 0.5,
+          rotate: rot,
         },
-      });
-
-      gsap.to(image, {
-        xPercent: xTransform,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: image,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 1,
-        },
-      });
+        {
+          y: yShift,
+          x: xShift,
+          rotate: -rot,
+          ease: 'power1.out',
+          scrollTrigger: {
+            trigger: card,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1.2,
+          },
+        }
+      );
     });
 
     const timer = setTimeout(() => {
@@ -308,31 +311,43 @@ const About = () => {
           </p>
         </div>
 
-        {/* 8-Column Grid spanning 20 rows — Floating Doctor Images with Scroll Animation */}
-        <div className="w-full relative py-4 overflow-x-clip">
+        {/* 5-Column Staggered Grid spanning 8 rows — Floating Doctor Images with Scroll Animation (16 items) */}
+        <div className="w-full relative py-6 overflow-hidden">
           <div 
-            className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2 xs:gap-3 sm:gap-6 p-2 relative z-0"
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 sm:gap-6 lg:gap-8 p-2 relative z-0"
             style={{
-              gridTemplateRows: 'repeat(20, min(32vh, 220px))',
+              gridTemplateRows: 'repeat(8, minmax(240px, 340px))',
             }}
           >
             {gridItems.map((item, idx) => {
-              // Dynamically wrap columns on smaller viewports
-              const colSpanClass = "";
+              const colClass = 
+                item.c === 1 ? 'col-start-1 sm:col-start-1 md:col-start-1' :
+                item.c === 2 ? 'col-start-2 sm:col-start-2 md:col-start-2' :
+                item.c === 3 ? 'col-start-1 sm:col-start-3 md:col-start-3' :
+                item.c === 4 ? 'col-start-2 sm:col-start-1 md:col-start-4' :
+                'col-start-2 sm:col-start-3 md:col-start-5';
+
               return (
                 <div
                   key={idx}
-                  className={`doctor-scroll-elem col-span-1 row-span-1 w-full h-full min-h-[110px] sm:min-h-[160px] ${colSpanClass}`}
+                  className={`doctor-scroll-elem col-span-1 row-span-1 w-full h-full flex items-center justify-center ${colClass}`}
                   style={{
                     gridRow: item.r,
-                    gridColumn: `var(--col-${item.c}, ${item.c > 4 ? ((item.c - 1) % 4) + 1 : item.c})`,
                   }}
                 >
-                  <img
-                    src={item.img}
-                    alt="Specialist Doctor"
-                    className="w-full h-full object-cover rounded-xl sm:rounded-2xl shadow-lg sm:shadow-xl will-change-transform pointer-events-none"
-                  />
+                  <div className="doctor-card-inner relative w-full h-full max-w-[310px] max-h-[350px] aspect-[4/5] rounded-2xl sm:rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl border border-slate-200/80 bg-slate-900 group transition-all duration-300">
+                    <img
+                      src={item.img}
+                      alt={item.name}
+                      className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/25 to-transparent opacity-75 group-hover:opacity-95 transition-opacity" />
+                    <div className="absolute bottom-0 inset-x-0 p-3.5 sm:p-4 text-left">
+                      <p className="text-white text-sm sm:text-base font-bold leading-tight">{item.name}</p>
+                      <p className="text-teal-300 text-xs sm:text-sm font-medium mt-0.5">{item.spec}</p>
+                    </div>
+                  </div>
                 </div>
               );
             })}
